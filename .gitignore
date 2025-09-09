@@ -1,0 +1,26 @@
+# Ignore build stuff
+/bin/
+.build/
+.gradle/
+out/
+run/
+logs/
+classes/
+eclipse/
+.idea/
+
+# Ignore OS junk
+.DS_Store
+Thumbs.db
+
+# Ignore Minecraft/Forge runtime stuff
+/config/
+mods/
+saves/
+
+# Ignore compiled files
+*.class
+*.log
+*.jar
+*.tmp
+*.lock
