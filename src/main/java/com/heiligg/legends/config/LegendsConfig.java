@@ -13,6 +13,7 @@ public class LegendsConfig {
     public static boolean fullSetCancelsFallDamage = true;
     public static int wraithSpawnWeight = 6;
     public static int shrineChance = 18;
+    public static int ruinChance = 28;
 
     public static void load(File file) {
         Configuration config = new Configuration(file);
@@ -60,6 +61,14 @@ public class LegendsConfig {
                     1,
                     200,
                     "1-in-N chance per chunk to attempt a Legend Shrine"
+            );
+            ruinChance = config.getInt(
+                    "ruinChance",
+                    "world",
+                    28,
+                    1,
+                    300,
+                    "1-in-N chance per chunk to attempt an underground Legend Ruin"
             );
         } finally {
             if (config.hasChanged()) {

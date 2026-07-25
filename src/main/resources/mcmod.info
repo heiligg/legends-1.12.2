@@ -2,8 +2,8 @@
   {
     "modid": "legends",
     "name": "Legends",
-    "description": "Legendary gear, shrines, wraiths, a guardian boss, and ascended endgame for Minecraft 1.12.2.",
-    "version": "2.0.0",
+    "description": "Legendary gear, shrines, ruins, knights, wraiths, a guardian boss, and ascended endgame for Minecraft 1.12.2.",
+    "version": "2.1.0",
     "mcversion": "1.12.2",
     "url": "",
     "updateUrl": "",

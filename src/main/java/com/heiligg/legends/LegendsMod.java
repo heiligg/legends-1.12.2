@@ -6,20 +6,26 @@ import com.heiligg.legends.block.BlockLegendOre;
 import com.heiligg.legends.config.LegendsConfig;
 import com.heiligg.legends.entity.EntityArcaneBolt;
 import com.heiligg.legends.entity.EntityLegendGuardian;
+import com.heiligg.legends.entity.EntityLegendKnight;
 import com.heiligg.legends.entity.EntityLegendWraith;
 import com.heiligg.legends.handler.ArmorAbilityHandler;
 import com.heiligg.legends.handler.LootHandler;
+import com.heiligg.legends.handler.TotemHandler;
 import com.heiligg.legends.item.ItemAscendedArmor;
 import com.heiligg.legends.item.ItemAscendedBlade;
 import com.heiligg.legends.item.ItemAscendedCore;
 import com.heiligg.legends.item.ItemLegendAmulet;
+import com.heiligg.legends.item.ItemLegendElixir;
 import com.heiligg.legends.item.ItemLegendEssence;
 import com.heiligg.legends.item.ItemLegendFragment;
+import com.heiligg.legends.item.ItemLegendTotem;
 import com.heiligg.legends.item.ItemLegendaryArmor;
 import com.heiligg.legends.item.ItemLegendaryAxe;
 import com.heiligg.legends.item.ItemLegendaryBlade;
 import com.heiligg.legends.item.ItemLegendaryBow;
 import com.heiligg.legends.item.ItemLegendaryPickaxe;
+import com.heiligg.legends.item.ItemLegendaryShield;
+import com.heiligg.legends.item.ItemLegendaryShovel;
 import com.heiligg.legends.item.ItemLegendaryStaff;
 import com.heiligg.legends.network.DashPacket;
 import com.heiligg.legends.network.ShockwavePacket;
@@ -57,7 +63,7 @@ public class LegendsMod {
 
     public static final String MODID = "legends";
     public static final String NAME = "Legends";
-    public static final String VERSION = "2.0.0";
+    public static final String VERSION = "2.1.0";
 
     public static Logger logger;
     public static SimpleNetworkWrapper network;
@@ -75,7 +81,11 @@ public class LegendsMod {
     public static Item legendaryStaff;
     public static Item legendaryPickaxe;
     public static Item legendaryAxe;
+    public static Item legendaryShovel;
+    public static Item legendaryShield;
     public static Item legendAmulet;
+    public static Item legendTotem;
+    public static Item legendElixir;
     public static Item legendaryHelmet;
     public static Item legendaryChest;
     public static Item legendaryLegs;
@@ -96,26 +106,12 @@ public class LegendsMod {
     };
 
     public static final ItemArmor.ArmorMaterial LEGENDARY_ARMOR =
-            EnumHelper.addArmorMaterial(
-                    "LEGENDARY",
-                    MODID + ":legendary",
-                    45,
-                    new int[]{4, 9, 7, 4},
-                    30,
-                    net.minecraft.init.SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND,
-                    3.0F
-            );
+            EnumHelper.addArmorMaterial("LEGENDARY", MODID + ":legendary", 45, new int[]{4, 9, 7, 4}, 30,
+                    net.minecraft.init.SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 3.0F);
 
     public static final ItemArmor.ArmorMaterial ASCENDED_ARMOR =
-            EnumHelper.addArmorMaterial(
-                    "ASCENDED",
-                    MODID + ":ascended",
-                    60,
-                    new int[]{5, 10, 8, 5},
-                    35,
-                    net.minecraft.init.SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND,
-                    4.0F
-            );
+            EnumHelper.addArmorMaterial("ASCENDED", MODID + ":ascended", 60, new int[]{5, 10, 8, 5}, 35,
+                    net.minecraft.init.SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, 4.0F);
 
     public static final Item.ToolMaterial LEGENDARY_TOOL =
             EnumHelper.addToolMaterial("LEGENDARY_TOOL", 4, 2500, 10.0F, 8.0F, 22);
@@ -123,11 +119,11 @@ public class LegendsMod {
     public static final Item.ToolMaterial ASCENDED_TOOL =
             EnumHelper.addToolMaterial("ASCENDED_TOOL", 4, 3500, 12.0F, 11.0F, 28);
 
-    @SidedProxy(
-            clientSide = "com.heiligg.legends.ClientProxy",
-            serverSide = "com.heiligg.legends.CommonProxy"
-    )
+    @SidedProxy(clientSide = "com.heiligg.legends.ClientProxy", serverSide = "com.heiligg.legends.CommonProxy")
     public static CommonProxy proxy;
+
+    @Mod.Instance
+    public static LegendsMod instance;
 
     private static int packetId = 0;
     private static int entityId = 0;
@@ -135,9 +131,6 @@ public class LegendsMod {
     private static int nextPacketId() {
         return packetId++;
     }
-
-    @Mod.Instance
-    public static LegendsMod instance;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -149,44 +142,24 @@ public class LegendsMod {
         network.registerMessage(ShockwavePacket.Handler.class, ShockwavePacket.class, nextPacketId(), Side.SERVER);
         network.registerMessage(StaffBoltPacket.Handler.class, StaffBoltPacket.class, nextPacketId(), Side.SERVER);
 
-        EntityRegistry.registerModEntity(
-                new ResourceLocation(MODID, "arcane_bolt"),
-                EntityArcaneBolt.class,
-                "arcane_bolt",
-                entityId++,
-                this,
-                64,
-                1,
-                true
-        );
-        EntityRegistry.registerModEntity(
-                new ResourceLocation(MODID, "legend_wraith"),
-                EntityLegendWraith.class,
-                "legend_wraith",
-                entityId++,
-                this,
-                80,
-                3,
-                true
-        );
-        EntityRegistry.registerEgg(new ResourceLocation(MODID, "legend_wraith"), 0x2A6F8F, 0x7FDFFF);
-
-        EntityRegistry.registerModEntity(
-                new ResourceLocation(MODID, "legend_guardian"),
-                EntityLegendGuardian.class,
-                "legend_guardian",
-                entityId++,
-                this,
-                96,
-                3,
-                true
-        );
-        EntityRegistry.registerEgg(new ResourceLocation(MODID, "legend_guardian"), 0x1A2A6A, 0xC080FF);
+        registerEntity("arcane_bolt", EntityArcaneBolt.class, 64, 1, true, -1, -1);
+        registerEntity("legend_wraith", EntityLegendWraith.class, 80, 3, true, 0x2A6F8F, 0x7FDFFF);
+        registerEntity("legend_guardian", EntityLegendGuardian.class, 96, 3, true, 0x1A2A6A, 0xC080FF);
+        registerEntity("legend_knight", EntityLegendKnight.class, 80, 3, true, 0x4A5568, 0x9BD1FF);
 
         MinecraftForge.EVENT_BUS.register(new ArmorAbilityHandler());
         MinecraftForge.EVENT_BUS.register(new LootHandler());
+        MinecraftForge.EVENT_BUS.register(new TotemHandler());
         proxy.preInit();
         logger.info("Legends {} pre-initialized", VERSION);
+    }
+
+    private void registerEntity(String name, Class<? extends net.minecraft.entity.Entity> clazz,
+                                int range, int update, boolean velocity, int eggPrimary, int eggSecondary) {
+        EntityRegistry.registerModEntity(new ResourceLocation(MODID, name), clazz, name, entityId++, this, range, update, velocity);
+        if (eggPrimary >= 0) {
+            EntityRegistry.registerEgg(new ResourceLocation(MODID, name), eggPrimary, eggSecondary);
+        }
     }
 
     @Mod.EventHandler
@@ -195,14 +168,7 @@ public class LegendsMod {
 
         for (Biome biome : ForgeRegistries.BIOMES) {
             if (biome != null && !biome.getSpawnableList(EnumCreatureType.MONSTER).isEmpty()) {
-                EntityRegistry.addSpawn(
-                        EntityLegendWraith.class,
-                        LegendsConfig.wraithSpawnWeight,
-                        1,
-                        2,
-                        EnumCreatureType.MONSTER,
-                        biome
-                );
+                EntityRegistry.addSpawn(EntityLegendWraith.class, LegendsConfig.wraithSpawnWeight, 1, 2, EnumCreatureType.MONSTER, biome);
             }
         }
 
@@ -212,130 +178,55 @@ public class LegendsMod {
 
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
-        legendOre = new BlockLegendOre()
-                .setRegistryName(MODID, "legend_ore")
-                .setUnlocalizedName(MODID + ".legend_ore");
-        legendBrick = new BlockLegendBrick()
-                .setRegistryName(MODID, "legend_brick")
-                .setUnlocalizedName(MODID + ".legend_brick");
-        legendAltar = new BlockLegendAltar()
-                .setRegistryName(MODID, "legend_altar")
-                .setUnlocalizedName(MODID + ".legend_altar");
+        legendOre = new BlockLegendOre().setRegistryName(MODID, "legend_ore").setUnlocalizedName(MODID + ".legend_ore");
+        legendBrick = new BlockLegendBrick().setRegistryName(MODID, "legend_brick").setUnlocalizedName(MODID + ".legend_brick");
+        legendAltar = new BlockLegendAltar().setRegistryName(MODID, "legend_altar").setUnlocalizedName(MODID + ".legend_altar");
         event.getRegistry().registerAll(legendOre, legendBrick, legendAltar);
     }
 
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
-        legendEssence = new ItemLegendEssence()
-                .setRegistryName(MODID, "legend_essence")
-                .setUnlocalizedName(MODID + ".legend_essence")
-                .setCreativeTab(TAB);
+        legendEssence = item(new ItemLegendEssence(), "legend_essence");
+        legendFragment = item(new ItemLegendFragment(), "legend_fragment");
+        ascendedCore = item(new ItemAscendedCore(), "ascended_core");
+        legendaryBlade = item(new ItemLegendaryBlade(LEGENDARY_TOOL), "legendary_blade");
+        ascendedBlade = item(new ItemAscendedBlade(ASCENDED_TOOL), "ascended_blade");
+        legendaryBow = item(new ItemLegendaryBow(), "legendary_bow");
+        legendaryStaff = item(new ItemLegendaryStaff(), "legendary_staff");
+        legendaryPickaxe = item(new ItemLegendaryPickaxe(LEGENDARY_TOOL), "legendary_pickaxe");
+        legendaryAxe = item(new ItemLegendaryAxe(LEGENDARY_TOOL), "legendary_axe");
+        legendaryShovel = item(new ItemLegendaryShovel(LEGENDARY_TOOL), "legendary_shovel");
+        legendaryShield = item(new ItemLegendaryShield(), "legendary_shield");
+        legendAmulet = item(new ItemLegendAmulet(), "legend_amulet");
+        legendTotem = item(new ItemLegendTotem(), "legend_totem");
+        legendElixir = item(new ItemLegendElixir(), "legend_elixir");
 
-        legendFragment = new ItemLegendFragment()
-                .setRegistryName(MODID, "legend_fragment")
-                .setUnlocalizedName(MODID + ".legend_fragment")
-                .setCreativeTab(TAB);
+        legendaryHelmet = item(new ItemLegendaryArmor(LEGENDARY_ARMOR, 1, EntityEquipmentSlot.HEAD), "legendary_helmet");
+        legendaryChest = item(new ItemLegendaryArmor(LEGENDARY_ARMOR, 1, EntityEquipmentSlot.CHEST), "legendary_chest");
+        legendaryLegs = item(new ItemLegendaryArmor(LEGENDARY_ARMOR, 2, EntityEquipmentSlot.LEGS), "legendary_legs");
+        legendaryBoots = item(new ItemLegendaryArmor(LEGENDARY_ARMOR, 1, EntityEquipmentSlot.FEET), "legendary_boots");
 
-        ascendedCore = new ItemAscendedCore()
-                .setRegistryName(MODID, "ascended_core")
-                .setUnlocalizedName(MODID + ".ascended_core")
-                .setCreativeTab(TAB);
-
-        legendaryBlade = new ItemLegendaryBlade(LEGENDARY_TOOL)
-                .setRegistryName(MODID, "legendary_blade")
-                .setUnlocalizedName(MODID + ".legendary_blade")
-                .setCreativeTab(TAB);
-
-        ascendedBlade = new ItemAscendedBlade(ASCENDED_TOOL)
-                .setRegistryName(MODID, "ascended_blade")
-                .setUnlocalizedName(MODID + ".ascended_blade")
-                .setCreativeTab(TAB);
-
-        legendaryBow = new ItemLegendaryBow()
-                .setRegistryName(MODID, "legendary_bow")
-                .setUnlocalizedName(MODID + ".legendary_bow")
-                .setCreativeTab(TAB);
-
-        legendaryStaff = new ItemLegendaryStaff()
-                .setRegistryName(MODID, "legendary_staff")
-                .setUnlocalizedName(MODID + ".legendary_staff")
-                .setCreativeTab(TAB);
-
-        legendaryPickaxe = new ItemLegendaryPickaxe(LEGENDARY_TOOL)
-                .setRegistryName(MODID, "legendary_pickaxe")
-                .setUnlocalizedName(MODID + ".legendary_pickaxe")
-                .setCreativeTab(TAB);
-
-        legendaryAxe = new ItemLegendaryAxe(LEGENDARY_TOOL)
-                .setRegistryName(MODID, "legendary_axe")
-                .setUnlocalizedName(MODID + ".legendary_axe")
-                .setCreativeTab(TAB);
-
-        legendAmulet = new ItemLegendAmulet()
-                .setRegistryName(MODID, "legend_amulet")
-                .setUnlocalizedName(MODID + ".legend_amulet")
-                .setCreativeTab(TAB);
-
-        legendaryHelmet = new ItemLegendaryArmor(LEGENDARY_ARMOR, 1, EntityEquipmentSlot.HEAD)
-                .setRegistryName(MODID, "legendary_helmet")
-                .setUnlocalizedName(MODID + ".legendary_helmet")
-                .setCreativeTab(TAB);
-        legendaryChest = new ItemLegendaryArmor(LEGENDARY_ARMOR, 1, EntityEquipmentSlot.CHEST)
-                .setRegistryName(MODID, "legendary_chest")
-                .setUnlocalizedName(MODID + ".legendary_chest")
-                .setCreativeTab(TAB);
-        legendaryLegs = new ItemLegendaryArmor(LEGENDARY_ARMOR, 2, EntityEquipmentSlot.LEGS)
-                .setRegistryName(MODID, "legendary_legs")
-                .setUnlocalizedName(MODID + ".legendary_legs")
-                .setCreativeTab(TAB);
-        legendaryBoots = new ItemLegendaryArmor(LEGENDARY_ARMOR, 1, EntityEquipmentSlot.FEET)
-                .setRegistryName(MODID, "legendary_boots")
-                .setUnlocalizedName(MODID + ".legendary_boots")
-                .setCreativeTab(TAB);
-
-        ascendedHelmet = new ItemAscendedArmor(ASCENDED_ARMOR, 1, EntityEquipmentSlot.HEAD)
-                .setRegistryName(MODID, "ascended_helmet")
-                .setUnlocalizedName(MODID + ".ascended_helmet")
-                .setCreativeTab(TAB);
-        ascendedChest = new ItemAscendedArmor(ASCENDED_ARMOR, 1, EntityEquipmentSlot.CHEST)
-                .setRegistryName(MODID, "ascended_chest")
-                .setUnlocalizedName(MODID + ".ascended_chest")
-                .setCreativeTab(TAB);
-        ascendedLegs = new ItemAscendedArmor(ASCENDED_ARMOR, 2, EntityEquipmentSlot.LEGS)
-                .setRegistryName(MODID, "ascended_legs")
-                .setUnlocalizedName(MODID + ".ascended_legs")
-                .setCreativeTab(TAB);
-        ascendedBoots = new ItemAscendedArmor(ASCENDED_ARMOR, 1, EntityEquipmentSlot.FEET)
-                .setRegistryName(MODID, "ascended_boots")
-                .setUnlocalizedName(MODID + ".ascended_boots")
-                .setCreativeTab(TAB);
+        ascendedHelmet = item(new ItemAscendedArmor(ASCENDED_ARMOR, 1, EntityEquipmentSlot.HEAD), "ascended_helmet");
+        ascendedChest = item(new ItemAscendedArmor(ASCENDED_ARMOR, 1, EntityEquipmentSlot.CHEST), "ascended_chest");
+        ascendedLegs = item(new ItemAscendedArmor(ASCENDED_ARMOR, 2, EntityEquipmentSlot.LEGS), "ascended_legs");
+        ascendedBoots = item(new ItemAscendedArmor(ASCENDED_ARMOR, 1, EntityEquipmentSlot.FEET), "ascended_boots");
 
         legendOreItem = new ItemBlock(legendOre).setRegistryName(legendOre.getRegistryName()).setCreativeTab(TAB);
         legendBrickItem = new ItemBlock(legendBrick).setRegistryName(legendBrick.getRegistryName()).setCreativeTab(TAB);
         legendAltarItem = new ItemBlock(legendAltar).setRegistryName(legendAltar.getRegistryName()).setCreativeTab(TAB);
 
         event.getRegistry().registerAll(
-                legendEssence,
-                legendFragment,
-                ascendedCore,
-                legendaryBlade,
-                ascendedBlade,
-                legendaryBow,
-                legendaryStaff,
-                legendaryPickaxe,
-                legendaryAxe,
-                legendAmulet,
-                legendaryHelmet,
-                legendaryChest,
-                legendaryLegs,
-                legendaryBoots,
-                ascendedHelmet,
-                ascendedChest,
-                ascendedLegs,
-                ascendedBoots,
-                legendOreItem,
-                legendBrickItem,
-                legendAltarItem
+                legendEssence, legendFragment, ascendedCore,
+                legendaryBlade, ascendedBlade, legendaryBow, legendaryStaff,
+                legendaryPickaxe, legendaryAxe, legendaryShovel, legendaryShield,
+                legendAmulet, legendTotem, legendElixir,
+                legendaryHelmet, legendaryChest, legendaryLegs, legendaryBoots,
+                ascendedHelmet, ascendedChest, ascendedLegs, ascendedBoots,
+                legendOreItem, legendBrickItem, legendAltarItem
         );
+    }
+
+    private static Item item(Item item, String name) {
+        return item.setRegistryName(MODID, name).setUnlocalizedName(MODID + "." + name).setCreativeTab(TAB);
     }
 }

@@ -1,9 +1,11 @@
 package com.heiligg.legends;
 
 import com.heiligg.legends.client.RenderLegendGuardian;
+import com.heiligg.legends.client.RenderLegendKnight;
 import com.heiligg.legends.client.RenderLegendWraith;
 import com.heiligg.legends.entity.EntityArcaneBolt;
 import com.heiligg.legends.entity.EntityLegendGuardian;
+import com.heiligg.legends.entity.EntityLegendKnight;
 import com.heiligg.legends.entity.EntityLegendWraith;
 import com.heiligg.legends.handler.KeyInputHandler;
 import com.heiligg.legends.handler.LegendHUD;
@@ -50,40 +52,34 @@ public class ClientProxy extends CommonProxy {
                 return new RenderLegendGuardian(manager);
             }
         });
+        RenderingRegistry.registerEntityRenderingHandler(EntityLegendKnight.class, new IRenderFactory<EntityLegendKnight>() {
+            @Override
+            public Render<? super EntityLegendKnight> createRenderFor(RenderManager manager) {
+                return new RenderLegendKnight(manager);
+            }
+        });
     }
 
     @SubscribeEvent
     public static void registerModels(ModelRegistryEvent event) {
-        registerItemModel(LegendsMod.legendEssence);
-        registerItemModel(LegendsMod.legendFragment);
-        registerItemModel(LegendsMod.ascendedCore);
-        registerItemModel(LegendsMod.legendaryBlade);
-        registerItemModel(LegendsMod.ascendedBlade);
-        registerItemModel(LegendsMod.legendaryBow);
-        registerItemModel(LegendsMod.legendaryStaff);
-        registerItemModel(LegendsMod.legendaryPickaxe);
-        registerItemModel(LegendsMod.legendaryAxe);
-        registerItemModel(LegendsMod.legendAmulet);
-        registerItemModel(LegendsMod.legendaryHelmet);
-        registerItemModel(LegendsMod.legendaryChest);
-        registerItemModel(LegendsMod.legendaryLegs);
-        registerItemModel(LegendsMod.legendaryBoots);
-        registerItemModel(LegendsMod.ascendedHelmet);
-        registerItemModel(LegendsMod.ascendedChest);
-        registerItemModel(LegendsMod.ascendedLegs);
-        registerItemModel(LegendsMod.ascendedBoots);
-        registerItemModel(LegendsMod.legendOreItem);
-        registerItemModel(LegendsMod.legendBrickItem);
-        registerItemModel(LegendsMod.legendAltarItem);
+        Item[] items = new Item[]{
+                LegendsMod.legendEssence, LegendsMod.legendFragment, LegendsMod.ascendedCore,
+                LegendsMod.legendaryBlade, LegendsMod.ascendedBlade, LegendsMod.legendaryBow,
+                LegendsMod.legendaryStaff, LegendsMod.legendaryPickaxe, LegendsMod.legendaryAxe,
+                LegendsMod.legendaryShovel, LegendsMod.legendaryShield, LegendsMod.legendAmulet,
+                LegendsMod.legendTotem, LegendsMod.legendElixir,
+                LegendsMod.legendaryHelmet, LegendsMod.legendaryChest, LegendsMod.legendaryLegs, LegendsMod.legendaryBoots,
+                LegendsMod.ascendedHelmet, LegendsMod.ascendedChest, LegendsMod.ascendedLegs, LegendsMod.ascendedBoots,
+                LegendsMod.legendOreItem, LegendsMod.legendBrickItem, LegendsMod.legendAltarItem
+        };
+        for (Item item : items) {
+            registerItemModel(item);
+        }
     }
 
     private static void registerItemModel(Item item) {
         if (item != null && item.getRegistryName() != null) {
-            ModelLoader.setCustomModelResourceLocation(
-                    item,
-                    0,
-                    new ModelResourceLocation(item.getRegistryName(), "inventory")
-            );
+            ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
         }
     }
 }

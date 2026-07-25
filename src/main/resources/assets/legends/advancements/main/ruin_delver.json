@@ -1,0 +1,15 @@
+{
+  "parent": "legends:main/root",
+  "display": {
+    "icon": { "item": "legends:legend_elixir" },
+    "title": { "translate": "advancements.legends.ruin_delver.title" },
+    "description": { "translate": "advancements.legends.ruin_delver.description" },
+    "frame": "task"
+  },
+  "criteria": {
+    "got_elixir": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "item": "legends:legend_elixir" }] }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": ["WEW", "WWW", " W "],
+  "key": {
+    "W": { "item": "minecraft:planks", "data": 32767 },
+    "E": { "item": "legends:legend_essence" }
+  },
+  "result": { "item": "legends:legendary_shield" }
+}

@@ -14,6 +14,7 @@ import java.util.Random;
 public class LegendsWorldGen implements IWorldGenerator {
 
     private final WorldGenLegendShrine shrineGen = new WorldGenLegendShrine();
+    private final WorldGenLegendRuin ruinGen = new WorldGenLegendRuin();
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
@@ -34,6 +35,12 @@ public class LegendsWorldGen implements IWorldGenerator {
             int x = chunkX * 16 + 8 + random.nextInt(8);
             int z = chunkZ * 16 + 8 + random.nextInt(8);
             shrineGen.generate(world, random, new BlockPos(x, 0, z));
+        }
+
+        if (random.nextInt(Math.max(1, LegendsConfig.ruinChance)) == 0) {
+            int x = chunkX * 16 + 4 + random.nextInt(8);
+            int z = chunkZ * 16 + 4 + random.nextInt(8);
+            ruinGen.generate(world, random, new BlockPos(x, 0, z));
         }
     }
 }
