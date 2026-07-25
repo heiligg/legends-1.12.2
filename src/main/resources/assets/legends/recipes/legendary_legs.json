@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EEE",
+    "E E",
+    "E E"
+  ],
+  "key": {
+    "E": {
+      "item": "legends:legend_essence"
+    }
+  },
+  "result": {
+    "item": "legends:legendary_legs"
+  }
+}

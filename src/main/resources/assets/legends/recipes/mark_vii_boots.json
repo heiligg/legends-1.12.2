@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "pattern": ["D D", "H H"], "key": {"D": {"item": "minecraft:diamond"}, "H": {"item": "legends:iron_man_boots"}}, "result": {"item": "legends:mark_vii_boots"}}

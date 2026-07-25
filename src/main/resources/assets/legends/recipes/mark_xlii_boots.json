@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "pattern": ["G G", "H H"], "key": {"G": {"item": "minecraft:gold_ingot"}, "H": {"item": "legends:mark_vii_boots"}}, "result": {"item": "legends:mark_xlii_boots"}}

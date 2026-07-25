@@ -1,0 +1,15 @@
+{
+  "parent": "legends:main/root",
+  "display": {
+    "icon": { "item": "legends:legendary_pickaxe" },
+    "title": { "translate": "advancements.legends.forge_tools.title" },
+    "description": { "translate": "advancements.legends.forge_tools.description" },
+    "frame": "goal"
+  },
+  "criteria": {
+    "got_pick": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "item": "legends:legendary_pickaxe" }] }
+    }
+  }
+}

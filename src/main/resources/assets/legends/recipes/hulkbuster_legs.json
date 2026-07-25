@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "pattern": ["OHO", "O O", "O O"], "key": {"O": {"item": "minecraft:obsidian"}, "H": {"item": "legends:war_machine_legs"}}, "result": {"item": "legends:hulkbuster_legs"}}

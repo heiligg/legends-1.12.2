@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "FIF",
+    "F F"
+  ],
+  "key": {
+    "F": {
+      "item": "legends:legend_fragment"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "legends:forged_helmet"
+  }
+}

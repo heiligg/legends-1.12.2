@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "E E",
+    "EDE",
+    "EEE"
+  ],
+  "key": {
+    "E": {
+      "item": "legends:legend_essence"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "result": {
+    "item": "legends:legendary_chest"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EEE",
+    "EDE"
+  ],
+  "key": {
+    "E": {
+      "item": "legends:legend_essence"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "result": {
+    "item": "legends:legendary_helmet"
+  }
+}

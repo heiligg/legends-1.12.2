@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "pattern": ["GGG", "GHG"], "key": {"G": {"item": "minecraft:gold_ingot"}, "H": {"item": "legends:iron_man_helmet"}}, "result": {"item": "legends:mark_v_helmet"}}

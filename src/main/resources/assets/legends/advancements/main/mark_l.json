@@ -1,0 +1,27 @@
+{
+  "parent": "legends:main/suit_up",
+  "display": {
+    "icon": {
+      "item": "legends:mark_l_chest"
+    },
+    "title": {
+      "translate": "advancements.legends.mark_l.title"
+    },
+    "description": {
+      "translate": "advancements.legends.mark_l.description"
+    },
+    "frame": "challenge"
+  },
+  "criteria": {
+    "chest": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "legends:mark_l_chest"
+          }
+        ]
+      }
+    }
+  }
+}

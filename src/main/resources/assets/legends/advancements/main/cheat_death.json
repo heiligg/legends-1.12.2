@@ -1,0 +1,15 @@
+{
+  "parent": "legends:main/full_set",
+  "display": {
+    "icon": { "item": "legends:legend_totem" },
+    "title": { "translate": "advancements.legends.cheat_death.title" },
+    "description": { "translate": "advancements.legends.cheat_death.description" },
+    "frame": "goal"
+  },
+  "criteria": {
+    "got_totem": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "item": "legends:legend_totem" }] }
+    }
+  }
+}

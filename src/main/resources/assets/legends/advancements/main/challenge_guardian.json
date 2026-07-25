@@ -1,0 +1,15 @@
+{
+  "parent": "legends:main/root",
+  "display": {
+    "icon": { "item": "legends:ascended_core" },
+    "title": { "translate": "advancements.legends.challenge_guardian.title" },
+    "description": { "translate": "advancements.legends.challenge_guardian.description" },
+    "frame": "challenge"
+  },
+  "criteria": {
+    "got_core": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "item": "legends:ascended_core" }] }
+    }
+  }
+}

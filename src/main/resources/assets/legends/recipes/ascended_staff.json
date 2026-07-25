@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "legends:legendary_staff" },
+    { "item": "legends:ascended_core" },
+    { "item": "minecraft:ender_eye" }
+  ],
+  "result": { "item": "legends:ascended_staff" }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " G ",
+    "GEG",
+    " G "
+  ],
+  "key": {
+    "G": { "item": "minecraft:gold_ingot" },
+    "E": { "item": "legends:legend_essence" }
+  },
+  "result": {
+    "item": "legends:legend_amulet"
+  }
+}

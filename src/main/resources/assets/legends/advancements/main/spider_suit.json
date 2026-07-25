@@ -1,0 +1,27 @@
+{
+  "parent": "legends:main/hero_root",
+  "display": {
+    "icon": {
+      "item": "legends:spider_man_chest"
+    },
+    "title": {
+      "translate": "advancements.legends.spider_suit.title"
+    },
+    "description": {
+      "translate": "advancements.legends.spider_suit.description"
+    },
+    "frame": "goal"
+  },
+  "criteria": {
+    "chest": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "legends:spider_man_chest"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "pattern": ["O O", "OHO", "OEO"], "key": {"O": {"item": "minecraft:obsidian"}, "H": {"item": "legends:war_machine_chest"}, "E": {"item": "legends:legend_essence"}}, "result": {"item": "legends:hulkbuster_chest"}}

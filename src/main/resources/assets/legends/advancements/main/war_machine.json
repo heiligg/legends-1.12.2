@@ -1,0 +1,27 @@
+{
+  "parent": "legends:main/suit_up",
+  "display": {
+    "icon": {
+      "item": "legends:war_machine_chest"
+    },
+    "title": {
+      "translate": "advancements.legends.war_machine.title"
+    },
+    "description": {
+      "translate": "advancements.legends.war_machine.description"
+    },
+    "frame": "goal"
+  },
+  "criteria": {
+    "chest": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "legends:war_machine_chest"
+          }
+        ]
+      }
+    }
+  }
+}

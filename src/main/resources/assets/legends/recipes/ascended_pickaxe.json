@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "legends:legendary_pickaxe"
+    },
+    {
+      "item": "legends:ascended_core"
+    }
+  ],
+  "result": {
+    "item": "legends:ascended_pickaxe"
+  }
+}

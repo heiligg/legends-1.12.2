@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "pattern": ["GGG", "GEG"], "key": {"G": {"item": "minecraft:gold_ingot"}, "E": {"item": "legends:legend_essence"}}, "result": {"item": "legends:flash_helmet"}}

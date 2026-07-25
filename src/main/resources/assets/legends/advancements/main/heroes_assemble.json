@@ -1,0 +1,57 @@
+{
+  "parent": "legends:main/hero_root",
+  "display": {
+    "icon": {
+      "item": "legends:vibranium_shield"
+    },
+    "title": {
+      "translate": "advancements.legends.heroes_assemble.title"
+    },
+    "description": {
+      "translate": "advancements.legends.heroes_assemble.description"
+    },
+    "frame": "challenge"
+  },
+  "criteria": {
+    "iron": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "legends:iron_man_chest"
+          }
+        ]
+      }
+    },
+    "spider": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "legends:spider_man_chest"
+          }
+        ]
+      }
+    },
+    "flash": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "legends:flash_chest"
+          }
+        ]
+      }
+    },
+    "cap": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "legends:captain_america_chest"
+          }
+        ]
+      }
+    }
+  }
+}

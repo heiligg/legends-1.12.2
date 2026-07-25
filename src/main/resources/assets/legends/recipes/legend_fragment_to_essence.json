@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "legends:legend_fragment" },
+    { "item": "legends:legend_fragment" },
+    { "item": "legends:legend_fragment" },
+    { "item": "legends:legend_fragment" }
+  ],
+  "result": {
+    "item": "legends:legend_essence"
+  }
+}

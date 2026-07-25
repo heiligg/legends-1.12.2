@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "pattern": ["D D", "DHD", "DND"], "key": {"D": {"item": "minecraft:diamond_block"}, "H": {"item": "legends:mark_xlii_chest"}, "N": {"item": "minecraft:nether_star"}}, "result": {"item": "legends:mark_l_chest"}}

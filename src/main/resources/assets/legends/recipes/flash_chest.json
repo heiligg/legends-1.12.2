@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "pattern": ["G G", "GEG", "GRG"], "key": {"G": {"item": "minecraft:gold_ingot"}, "E": {"item": "legends:legend_essence"}, "R": {"item": "minecraft:redstone_block"}}, "result": {"item": "legends:flash_chest"}}

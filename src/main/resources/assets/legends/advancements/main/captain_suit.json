@@ -1,0 +1,27 @@
+{
+  "parent": "legends:main/hero_root",
+  "display": {
+    "icon": {
+      "item": "legends:captain_america_chest"
+    },
+    "title": {
+      "translate": "advancements.legends.captain_suit.title"
+    },
+    "description": {
+      "translate": "advancements.legends.captain_suit.description"
+    },
+    "frame": "goal"
+  },
+  "criteria": {
+    "chest": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "legends:captain_america_chest"
+          }
+        ]
+      }
+    }
+  }
+}

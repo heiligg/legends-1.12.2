@@ -1,0 +1,16 @@
+[
+  {
+    "modid": "legends",
+    "name": "Legends",
+    "description": "Well of Legends progression: forged to ascended gear, shrines, Guardian trial, and complete hero kits for Minecraft 1.12.2.",
+    "version": "4.1.0",
+    "mcversion": "1.12.2",
+    "url": "",
+    "updateUrl": "",
+    "authorList": ["heiligg"],
+    "credits": "Built with Forge 1.12.2",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]

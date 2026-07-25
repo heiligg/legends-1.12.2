@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "pattern": ["GHG", "G G", "G G"], "key": {"G": {"item": "minecraft:gold_block"}, "H": {"item": "legends:mark_vii_legs"}}, "result": {"item": "legends:mark_xlii_legs"}}

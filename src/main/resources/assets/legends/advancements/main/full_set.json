@@ -1,0 +1,27 @@
+{
+  "parent": "legends:main/root",
+  "display": {
+    "icon": { "item": "legends:legendary_chest" },
+    "title": { "translate": "advancements.legends.full_set.title" },
+    "description": { "translate": "advancements.legends.full_set.description" },
+    "frame": "challenge"
+  },
+  "criteria": {
+    "helmet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "item": "legends:legendary_helmet" }] }
+    },
+    "chest": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "item": "legends:legendary_chest" }] }
+    },
+    "legs": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "item": "legends:legendary_legs" }] }
+    },
+    "boots": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "item": "legends:legendary_boots" }] }
+    }
+  }
+}
