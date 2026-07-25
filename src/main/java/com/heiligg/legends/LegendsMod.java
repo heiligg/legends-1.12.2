@@ -74,7 +74,7 @@ public class LegendsMod {
 
     public static final String MODID = "legends";
     public static final String NAME = "Legends";
-    public static final String VERSION = "3.5.0";
+    public static final String VERSION = "3.6.0";
 
     public static Logger logger;
     public static SimpleNetworkWrapper network;

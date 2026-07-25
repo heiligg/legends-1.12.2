@@ -94,10 +94,6 @@ public class ItemHeroArmor extends ItemArmor {
         tooltip.add(TextFormatting.AQUA + "Energy: " + getEnergy(stack) + "/" + heroType.maxEnergy);
         tooltip.add(TextFormatting.DARK_GRAY + "Wear the full set to unlock abilities.");
         switch (heroType) {
-            case IRON_MAN:
-                tooltip.add(TextFormatting.GOLD + "G Repulsor | F Flight | V Unibeam");
-                tooltip.add(TextFormatting.GRAY + "Sprint while flying for thruster boost");
-                break;
             case SPIDER_MAN:
                 tooltip.add(TextFormatting.GOLD + "G Web Zip | F Web Shot | V Spider Leap");
                 tooltip.add(TextFormatting.GRAY + "Sneak in air to glide / cling to walls");

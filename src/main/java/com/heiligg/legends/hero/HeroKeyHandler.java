@@ -28,7 +28,10 @@ public class HeroKeyHandler {
     @SubscribeEvent
     public void onKeyInput(InputEvent.KeyInputEvent event) {
         EntityPlayer player = Minecraft.getMinecraft().player;
-        if (player == null || ItemHeroArmor.getWornHeroSet(player) == null) {
+        if (player == null) {
+            return;
+        }
+        if (ItemIronSuitArmor.getWornSuit(player) == null && ItemHeroArmor.getWornHeroSet(player) == null) {
             return;
         }
         if (PRIMARY_KEY != null && PRIMARY_KEY.isPressed()) {

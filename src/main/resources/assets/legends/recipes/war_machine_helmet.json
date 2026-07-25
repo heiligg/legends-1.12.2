@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "pattern": ["III", "IHI"], "key": {"I": {"item": "minecraft:iron_block"}, "H": {"item": "legends:iron_man_helmet"}}, "result": {"item": "legends:war_machine_helmet"}}

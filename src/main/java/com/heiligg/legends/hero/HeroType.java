@@ -1,7 +1,6 @@
 package com.heiligg.legends.hero;
 
 public enum HeroType {
-    IRON_MAN("iron_man", "Iron Man", 160, 2),
     SPIDER_MAN("spider_man", "Spider-Man", 140, 2),
     FLASH("flash", "Flash", 150, 3),
     CAPTAIN_AMERICA("captain_america", "Captain America", 145, 2);

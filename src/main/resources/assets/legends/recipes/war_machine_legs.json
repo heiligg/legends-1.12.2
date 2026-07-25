@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "pattern": ["IHI", "I I", "I I"], "key": {"I": {"item": "minecraft:iron_block"}, "H": {"item": "legends:iron_man_legs"}}, "result": {"item": "legends:war_machine_legs"}}

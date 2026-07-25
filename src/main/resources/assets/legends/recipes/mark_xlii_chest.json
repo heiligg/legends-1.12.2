@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "pattern": ["G G", "GHG", "GEG"], "key": {"G": {"item": "minecraft:gold_block"}, "H": {"item": "legends:mark_vii_chest"}, "E": {"item": "legends:legend_essence"}}, "result": {"item": "legends:mark_xlii_chest"}}

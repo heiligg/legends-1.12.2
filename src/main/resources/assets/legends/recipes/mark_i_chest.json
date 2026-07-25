@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "pattern": ["M M", "MCM", "MRM"], "key": {"M": {"item": "minecraft:iron_ingot"}, "C": {"item": "minecraft:coal_block"}, "R": {"item": "minecraft:redstone"}}, "result": {"item": "legends:mark_i_chest"}}

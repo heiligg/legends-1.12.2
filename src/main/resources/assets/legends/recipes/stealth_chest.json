@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "pattern": ["E E", "EHE", "ESE"], "key": {"E": {"item": "minecraft:ender_pearl"}, "H": {"item": "legends:mark_v_chest"}, "S": {"item": "minecraft:spectral_arrow"}}, "result": {"item": "legends:stealth_chest"}}

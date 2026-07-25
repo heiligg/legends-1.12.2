@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "pattern": ["M M", "C C"], "key": {"M": {"item": "minecraft:iron_ingot"}, "C": {"item": "minecraft:coal"}}, "result": {"item": "legends:mark_i_boots"}}

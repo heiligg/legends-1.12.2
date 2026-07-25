@@ -12,15 +12,24 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 public final class ModHeroes {
 
-    public static ItemArmor.ArmorMaterial IRON_MAN_MATERIAL;
+    public static final Map<IronSuitType, ItemArmor.ArmorMaterial> IRON_MATERIALS =
+            new EnumMap<IronSuitType, ItemArmor.ArmorMaterial>(IronSuitType.class);
+    public static final Map<IronSuitType, Item> IRON_HELMETS = new EnumMap<IronSuitType, Item>(IronSuitType.class);
+    public static final Map<IronSuitType, Item> IRON_CHESTS = new EnumMap<IronSuitType, Item>(IronSuitType.class);
+    public static final Map<IronSuitType, Item> IRON_LEGS = new EnumMap<IronSuitType, Item>(IronSuitType.class);
+    public static final Map<IronSuitType, Item> IRON_BOOTS = new EnumMap<IronSuitType, Item>(IronSuitType.class);
+
     public static ItemArmor.ArmorMaterial SPIDER_MAN_MATERIAL;
     public static ItemArmor.ArmorMaterial FLASH_MATERIAL;
     public static ItemArmor.ArmorMaterial CAP_MATERIAL;
 
+    /** Legacy Mark III aliases. */
     public static Item ironManHelmet, ironManChest, ironManLegs, ironManBoots;
     public static Item spiderManHelmet, spiderManChest, spiderManLegs, spiderManBoots;
     public static Item flashHelmet, flashChest, flashLegs, flashBoots;
@@ -38,9 +47,39 @@ public final class ModHeroes {
     }
 
     public static void registerItems(IForgeRegistry<Item> registry) {
-        if (IRON_MAN_MATERIAL == null) {
-            IRON_MAN_MATERIAL = EnumHelper.addArmorMaterial("IRON_MAN_HERO", LegendsMod.MODID + ":iron_man",
-                    48, new int[]{3, 8, 6, 3}, 22, net.minecraft.init.SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2.5F);
+        if (SPIDER_MAN_MATERIAL == null) {
+            for (IronSuitType suit : IronSuitType.values()) {
+                float toughness = 1.5F;
+                int durability = 40;
+                int[] defense = new int[]{3, 8, 6, 3};
+                if (suit == IronSuitType.MARK_I) {
+                    durability = 28;
+                    defense = new int[]{2, 6, 5, 2};
+                    toughness = 0.5F;
+                } else if (suit == IronSuitType.MARK_V || suit == IronSuitType.STEALTH) {
+                    durability = 34;
+                    defense = new int[]{2, 7, 5, 2};
+                    toughness = 1.0F;
+                } else if (suit == IronSuitType.WAR_MACHINE || suit == IronSuitType.HULKBUSTER) {
+                    durability = 56;
+                    defense = new int[]{3, 9, 7, 3};
+                    toughness = 3.0F;
+                } else if (suit == IronSuitType.MARK_L) {
+                    durability = 60;
+                    defense = new int[]{3, 9, 7, 3};
+                    toughness = 3.5F;
+                }
+                IRON_MATERIALS.put(suit, EnumHelper.addArmorMaterial(
+                        "IRON_SUIT_" + suit.name(),
+                        LegendsMod.MODID + ":" + suit.textureName,
+                        durability,
+                        defense,
+                        20,
+                        net.minecraft.init.SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+                        toughness
+                ));
+            }
+
             SPIDER_MAN_MATERIAL = EnumHelper.addArmorMaterial("SPIDER_MAN_HERO", LegendsMod.MODID + ":spider_man",
                     40, new int[]{2, 7, 6, 2}, 20, net.minecraft.init.SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1.5F);
             FLASH_MATERIAL = EnumHelper.addArmorMaterial("FLASH_HERO", LegendsMod.MODID + ":flash",
@@ -51,10 +90,22 @@ public final class ModHeroes {
 
         ALL.clear();
 
-        ironManHelmet = hero(new ItemHeroArmor(IRON_MAN_MATERIAL, 1, EntityEquipmentSlot.HEAD, HeroType.IRON_MAN), "iron_man_helmet");
-        ironManChest = hero(new ItemHeroArmor(IRON_MAN_MATERIAL, 1, EntityEquipmentSlot.CHEST, HeroType.IRON_MAN), "iron_man_chest");
-        ironManLegs = hero(new ItemHeroArmor(IRON_MAN_MATERIAL, 2, EntityEquipmentSlot.LEGS, HeroType.IRON_MAN), "iron_man_legs");
-        ironManBoots = hero(new ItemHeroArmor(IRON_MAN_MATERIAL, 1, EntityEquipmentSlot.FEET, HeroType.IRON_MAN), "iron_man_boots");
+        for (IronSuitType suit : IronSuitType.values()) {
+            ItemArmor.ArmorMaterial mat = IRON_MATERIALS.get(suit);
+            Item helmet = hero(new ItemIronSuitArmor(mat, 1, EntityEquipmentSlot.HEAD, suit), suit.pieceName("helmet"));
+            Item chest = hero(new ItemIronSuitArmor(mat, 1, EntityEquipmentSlot.CHEST, suit), suit.pieceName("chest"));
+            Item legs = hero(new ItemIronSuitArmor(mat, 2, EntityEquipmentSlot.LEGS, suit), suit.pieceName("legs"));
+            Item boots = hero(new ItemIronSuitArmor(mat, 1, EntityEquipmentSlot.FEET, suit), suit.pieceName("boots"));
+            IRON_HELMETS.put(suit, helmet);
+            IRON_CHESTS.put(suit, chest);
+            IRON_LEGS.put(suit, legs);
+            IRON_BOOTS.put(suit, boots);
+        }
+
+        ironManHelmet = IRON_HELMETS.get(IronSuitType.MARK_III);
+        ironManChest = IRON_CHESTS.get(IronSuitType.MARK_III);
+        ironManLegs = IRON_LEGS.get(IronSuitType.MARK_III);
+        ironManBoots = IRON_BOOTS.get(IronSuitType.MARK_III);
 
         spiderManHelmet = hero(new ItemHeroArmor(SPIDER_MAN_MATERIAL, 1, EntityEquipmentSlot.HEAD, HeroType.SPIDER_MAN), "spider_man_helmet");
         spiderManChest = hero(new ItemHeroArmor(SPIDER_MAN_MATERIAL, 1, EntityEquipmentSlot.CHEST, HeroType.SPIDER_MAN), "spider_man_chest");

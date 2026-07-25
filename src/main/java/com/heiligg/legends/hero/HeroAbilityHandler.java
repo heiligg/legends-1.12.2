@@ -33,6 +33,7 @@ public class HeroAbilityHandler {
     private static final Map<UUID, Long> COOLDOWN_SECONDARY = new HashMap<UUID, Long>();
     private static final Map<UUID, Long> COOLDOWN_SPECIAL = new HashMap<UUID, Long>();
     private static final Map<UUID, Integer> SPIDER_SENSE_CD = new HashMap<UUID, Integer>();
+    private static final Map<UUID, Integer> CLOAK_TICKS = new HashMap<UUID, Integer>();
 
     public static void setIronFlight(EntityPlayer player, boolean flying) {
         IRON_FLIGHT.put(player.getUniqueID(), flying);
@@ -52,6 +53,14 @@ public class HeroAbilityHandler {
 
     public static void toggleSpeedForce(EntityPlayer player) {
         FLASH_SPEED_FORCE.put(player.getUniqueID(), !isSpeedForce(player));
+    }
+
+    public static void setCloakTicks(EntityPlayer player, int ticks) {
+        CLOAK_TICKS.put(player.getUniqueID(), ticks);
+    }
+
+    public static boolean isCloaked(EntityPlayer player) {
+        return CLOAK_TICKS.getOrDefault(player.getUniqueID(), 0) > 0;
     }
 
     public static boolean ready(EntityPlayer player, Map<UUID, Long> map, int cooldownTicks) {
@@ -83,6 +92,7 @@ public class HeroAbilityHandler {
         }
 
         EntityPlayer player = event.player;
+        IronSuitType ironSuit = ItemIronSuitArmor.getWornSuit(player);
         HeroType set = ItemHeroArmor.getWornHeroSet(player);
 
         for (ItemStack stack : player.getArmorInventoryList()) {
@@ -92,7 +102,32 @@ public class HeroAbilityHandler {
                 if (energy < armor.getHeroType().maxEnergy) {
                     armor.setEnergy(stack, energy + armor.getHeroType().rechargeRate);
                 }
+            } else if (stack.getItem() instanceof ItemIronSuitArmor) {
+                ItemIronSuitArmor armor = (ItemIronSuitArmor) stack.getItem();
+                int energy = armor.getEnergy(stack);
+                if (energy < armor.getSuitType().maxEnergy) {
+                    armor.setEnergy(stack, energy + armor.getSuitType().rechargeRate);
+                }
             }
+        }
+
+        int cloak = CLOAK_TICKS.getOrDefault(player.getUniqueID(), 0);
+        if (cloak > 0) {
+            CLOAK_TICKS.put(player.getUniqueID(), cloak - 1);
+            player.addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 25, 0, true, false));
+        }
+
+        if (ironSuit != null) {
+            ItemStack chest = ItemIronSuitArmor.getChest(player);
+            if (!(chest.getItem() instanceof ItemIronSuitArmor)) {
+                return;
+            }
+            ItemIronSuitArmor armor = (ItemIronSuitArmor) chest.getItem();
+            if (player.ticksExisted % 20 == 0) {
+                applyIronSetBonus(player, ironSuit);
+            }
+            tickIronSuit(player, ironSuit, armor, chest);
+            return;
         }
 
         if (set == null) {
@@ -101,6 +136,9 @@ public class HeroAbilityHandler {
         }
 
         ItemStack chest = ItemHeroArmor.getChest(player);
+        if (!(chest.getItem() instanceof ItemHeroArmor)) {
+            return;
+        }
         ItemHeroArmor armor = (ItemHeroArmor) chest.getItem();
 
         if (player.ticksExisted % 20 == 0) {
@@ -108,11 +146,8 @@ public class HeroAbilityHandler {
         }
 
         switch (set) {
-            case IRON_MAN:
-                tickIronMan(player, armor, chest);
-                break;
             case SPIDER_MAN:
-                tickSpiderMan(player, armor, chest);
+                tickSpiderMan(player);
                 break;
             case FLASH:
                 tickFlash(player, armor, chest);
@@ -134,35 +169,51 @@ public class HeroAbilityHandler {
             }
         }
         FLASH_SPEED_FORCE.put(player.getUniqueID(), false);
+        CLOAK_TICKS.put(player.getUniqueID(), 0);
     }
 
-    private void tickIronMan(EntityPlayer player, ItemHeroArmor armor, ItemStack chest) {
+    private void tickIronSuit(EntityPlayer player, IronSuitType suit, ItemIronSuitArmor armor, ItemStack chest) {
         boolean flying = isIronFlight(player);
-        if (flying && armor.getEnergy(chest) > 0) {
+
+        if (suit == IronSuitType.MARK_XLII && !player.world.isRemote && player.ticksExisted % 40 == 0) {
+            for (ItemStack piece : player.getArmorInventoryList()) {
+                if (!piece.isEmpty() && piece.isItemDamaged()) {
+                    piece.setItemDamage(Math.max(0, piece.getItemDamage() - 1));
+                }
+            }
+        }
+
+        if (suit == IronSuitType.HULKBUSTER && player.ticksExisted % 40 == 0) {
+            player.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 50, 1, true, false));
+            player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 50, 0, true, false));
+        }
+
+        if (flying && suit.canFly && armor.getEnergy(chest) > 0) {
             player.capabilities.allowFlying = true;
             player.capabilities.isFlying = true;
             player.fallDistance = 0.0F;
 
-            // Thruster boost while sprinting in flight
+            float speed = suit.flightSpeed;
             if (player.isSprinting()) {
                 Vec3d look = player.getLookVec();
-                player.motionX += look.x * 0.045D;
-                player.motionY += look.y * 0.03D;
-                player.motionZ += look.z * 0.045D;
+                player.motionX += look.x * 0.045D * speed;
+                player.motionY += look.y * 0.03D * speed;
+                player.motionZ += look.z * 0.045D * speed;
                 if (!player.world.isRemote && player.ticksExisted % 8 == 0) {
-                    armor.consumeEnergy(chest, 2);
+                    armor.consumeEnergy(chest, suit == IronSuitType.STEALTH ? 1 : 2);
                 }
             }
 
             if (!player.world.isRemote && player.ticksExisted % 8 == 0) {
-                armor.consumeEnergy(chest, 1);
+                int cost = suit == IronSuitType.HULKBUSTER ? 2 : 1;
+                armor.consumeEnergy(chest, cost);
                 if (armor.getEnergy(chest) <= 0) {
                     setIronFlight(player, false);
                     player.sendMessage(new TextComponentString("Jarvis: Power depleted. Landing."));
                 }
             }
 
-            if (player.world.isRemote && player.ticksExisted % 2 == 0) {
+            if (player.world.isRemote && player.ticksExisted % 2 == 0 && suit != IronSuitType.STEALTH) {
                 player.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL,
                         player.posX, player.posY, player.posZ, 0, -0.05D, 0);
             }
@@ -173,22 +224,19 @@ public class HeroAbilityHandler {
             }
         }
 
-        // Helmet HUD night vision while flying
-        if (flying) {
+        if (flying && suit.canFly) {
             player.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 220, 0, true, false));
         }
     }
 
-    private void tickSpiderMan(EntityPlayer player, ItemHeroArmor armor, ItemStack chest) {
+    private void tickSpiderMan(EntityPlayer player) {
         player.fallDistance = Math.min(player.fallDistance, 3.0F);
 
-        // Glide / soft fall while sneaking
         if (!player.onGround && player.isSneaking() && player.motionY < -0.08D) {
             player.motionY *= 0.65D;
             player.fallDistance = 0.0F;
         }
 
-        // Wall cling: if horizontal collision while sneaking in air, stick
         if (!player.onGround && player.isSneaking() && player.collidedHorizontally) {
             player.motionY = Math.max(player.motionY, -0.05D);
             player.motionX *= 0.2D;
@@ -196,7 +244,6 @@ public class HeroAbilityHandler {
             player.fallDistance = 0.0F;
         }
 
-        // Spider-Sense
         if (!player.world.isRemote) {
             int cd = SPIDER_SENSE_CD.getOrDefault(player.getUniqueID(), 0);
             if (cd > 0) {
@@ -232,7 +279,6 @@ public class HeroAbilityHandler {
             }
         }
 
-        // Water running while sprinting fast
         if (player.isSprinting() && player.isInWater()) {
             BlockPos under = new BlockPos(player.posX, player.posY - 0.2D, player.posZ);
             if (player.world.getBlockState(under).getMaterial().isLiquid() || player.isInWater()) {
@@ -244,7 +290,6 @@ public class HeroAbilityHandler {
             }
         }
 
-        // Lightning trail
         if ((force || player.isSprinting()) && player.world.isRemote && player.ticksExisted % 2 == 0) {
             player.world.spawnParticle(EnumParticleTypes.CRIT_MAGIC,
                     player.posX, player.posY + 0.2D, player.posZ, 0, 0.05D, 0);
@@ -252,19 +297,54 @@ public class HeroAbilityHandler {
     }
 
     private void tickCaptain(EntityPlayer player) {
-        // Cap stands firm
         if (player.ticksExisted % 40 == 0) {
             player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 50, 1, true, false));
         }
     }
 
-    private void applySetBonus(EntityPlayer player, HeroType set) {
-        switch (set) {
-            case IRON_MAN:
+    private void applyIronSetBonus(EntityPlayer player, IronSuitType suit) {
+        player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 40, 0, true, false));
+        switch (suit) {
+            case MARK_I:
+                player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 40, 0, true, false));
+                break;
+            case MARK_III:
+            case MARK_VII:
                 player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 40, 1, true, false));
-                player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 40, 0, true, false));
                 player.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 40, 0, true, false));
                 break;
+            case MARK_V:
+                player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 40, 1, true, false));
+                player.addPotionEffect(new PotionEffect(MobEffects.JUMP_BOOST, 40, 0, true, false));
+                break;
+            case MARK_XLII:
+                player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 40, 1, true, false));
+                player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 40, 0, true, false));
+                break;
+            case WAR_MACHINE:
+                player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 40, 1, true, false));
+                player.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 40, 1, true, false));
+                break;
+            case HULKBUSTER:
+                player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 40, 2, true, false));
+                player.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 40, 2, true, false));
+                break;
+            case MARK_L:
+                player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 40, 2, true, false));
+                player.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 40, 1, true, false));
+                player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 40, 0, true, false));
+                break;
+            case STEALTH:
+                player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 40, 1, true, false));
+                player.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 220, 0, true, false));
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void applySetBonus(EntityPlayer player, HeroType set) {
+        switch (set) {
             case SPIDER_MAN:
                 player.addPotionEffect(new PotionEffect(MobEffects.JUMP_BOOST, 40, 2, true, false));
                 player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 40, 1, true, false));
@@ -289,8 +369,12 @@ public class HeroAbilityHandler {
             return;
         }
         EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+        if (ItemIronSuitArmor.isWearingAnyIronSuit(player)) {
+            event.setCanceled(true);
+            return;
+        }
         HeroType set = ItemHeroArmor.getWornHeroSet(player);
-        if (set == HeroType.IRON_MAN || set == HeroType.SPIDER_MAN || set == HeroType.FLASH) {
+        if (set == HeroType.SPIDER_MAN || set == HeroType.FLASH) {
             event.setCanceled(true);
         } else if (set == HeroType.CAPTAIN_AMERICA) {
             event.setDamageMultiplier(0.3F);
@@ -300,38 +384,53 @@ public class HeroAbilityHandler {
     @SubscribeEvent
     public void onBreakSpeed(PlayerEvent.BreakSpeed event) {
         EntityPlayer player = event.getEntityPlayer();
+        IronSuitType suit = ItemIronSuitArmor.getWornSuit(player);
+        if (suit != null) {
+            float mult = 1.25F;
+            if (suit == IronSuitType.HULKBUSTER) {
+                mult = 1.8F;
+            } else if (suit == IronSuitType.MARK_L) {
+                mult = 1.5F;
+            }
+            event.setNewSpeed(event.getNewSpeed() * mult);
+        }
         if (ItemHeroArmor.getWornHeroSet(player) == HeroType.FLASH && (player.isSprinting() || isSpeedForce(player))) {
             event.setNewSpeed(event.getNewSpeed() * (isSpeedForce(player) ? 2.5F : 1.6F));
-        }
-        if (ItemHeroArmor.getWornHeroSet(player) == HeroType.IRON_MAN) {
-            event.setNewSpeed(event.getNewSpeed() * 1.25F);
         }
     }
 
     @SubscribeEvent
     public void onHurt(LivingHurtEvent event) {
         if (!(event.getEntityLiving() instanceof EntityPlayer)) {
-            // Flash momentum hits
             if (event.getSource().getTrueSource() instanceof EntityPlayer) {
                 EntityPlayer attacker = (EntityPlayer) event.getSource().getTrueSource();
                 if (ItemHeroArmor.getWornHeroSet(attacker) == HeroType.FLASH && attacker.isSprinting()) {
                     event.setAmount(event.getAmount() + (isSpeedForce(attacker) ? 6.0F : 3.0F));
                     event.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 40, 1));
                 }
+                IronSuitType suit = ItemIronSuitArmor.getWornSuit(attacker);
+                if (suit == IronSuitType.HULKBUSTER) {
+                    event.setAmount(event.getAmount() + 4.0F);
+                } else if (suit == IronSuitType.WAR_MACHINE) {
+                    event.setAmount(event.getAmount() + 2.0F);
+                }
             }
             return;
         }
 
         EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-        HeroType set = ItemHeroArmor.getWornHeroSet(player);
-        if (set == HeroType.IRON_MAN && event.getSource().isFireDamage()) {
+        if (ItemIronSuitArmor.isWearingAnyIronSuit(player) && event.getSource().isFireDamage()) {
             event.setCanceled(true);
         }
+        if (isCloaked(player) && event.getAmount() > 0.0F) {
+            CLOAK_TICKS.put(player.getUniqueID(), 0);
+            player.removePotionEffect(MobEffects.INVISIBILITY);
+        }
+        HeroType set = ItemHeroArmor.getWornHeroSet(player);
         if (set == HeroType.CAPTAIN_AMERICA && player.isActiveItemStackBlocking()) {
             event.setAmount(event.getAmount() * 0.45F);
         }
         if (set == HeroType.SPIDER_MAN && event.getSource().getTrueSource() instanceof EntityLivingBase) {
-            // Danger sense flinch: brief speed to escape
             player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 30, 2, true, false));
         }
     }

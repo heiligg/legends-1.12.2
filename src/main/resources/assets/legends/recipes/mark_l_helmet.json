@@ -1,0 +1,1 @@
+{"type": "minecraft:crafting_shaped", "pattern": ["DDD", "DHD"], "key": {"D": {"item": "minecraft:diamond_block"}, "H": {"item": "legends:mark_xlii_helmet"}}, "result": {"item": "legends:mark_l_helmet"}}
