@@ -64,8 +64,8 @@ public class ClientProxy extends CommonProxy {
     public static void registerModels(ModelRegistryEvent event) {
         Item[] items = new Item[]{
                 LegendsMod.legendEssence, LegendsMod.legendFragment, LegendsMod.ascendedCore,
-                LegendsMod.legendaryBlade, LegendsMod.ascendedBlade, LegendsMod.legendaryBow,
-                LegendsMod.legendaryStaff, LegendsMod.legendaryPickaxe, LegendsMod.legendaryAxe,
+                LegendsMod.legendaryBlade, LegendsMod.ascendedBlade, LegendsMod.legendaryBow, LegendsMod.ascendedBow,
+                LegendsMod.legendaryStaff, LegendsMod.ascendedStaff, LegendsMod.legendaryPickaxe, LegendsMod.legendaryAxe,
                 LegendsMod.legendaryShovel, LegendsMod.legendaryShield, LegendsMod.legendAmulet,
                 LegendsMod.legendTotem, LegendsMod.legendElixir,
                 LegendsMod.legendaryHelmet, LegendsMod.legendaryChest, LegendsMod.legendaryLegs, LegendsMod.legendaryBoots,

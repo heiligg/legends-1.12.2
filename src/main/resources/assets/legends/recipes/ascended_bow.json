@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "legends:legendary_bow" },
+    { "item": "legends:ascended_core" },
+    { "item": "minecraft:blaze_powder" }
+  ],
+  "result": { "item": "legends:ascended_bow" }
+}

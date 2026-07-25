@@ -14,8 +14,10 @@ Forge adventure/combat mod with legendary gear, shrines, underground ruins, host
 
 - Worldgen: Legend Ore, surface shrines, underground ruins
 - Mobs: Legend Wraith, Legend Knight, Legend Guardian (boss)
-- Gear: legendary + ascended armor/weapons/tools, shield, amulet
+- Gear: legendary + ascended armor/weapons/tools/bow/staff, shield, amulet
 - Consumables: Legend Elixir, Legend Totem (death save)
+- Smelting: Legend Ore → Fragments
+- Combat polish: shield block bonus, ascended damage resist
 - Dash, shockwave, staff bolts, power HUD
 - Advancements and `config/legends.cfg`
 
@@ -31,7 +33,7 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 ./gradlew build
 ```
 
-Jar: `build/libs/legends-2.1.0.jar`
+Jar: `build/libs/legends-2.2.0.jar`
 
 ## Controls
 

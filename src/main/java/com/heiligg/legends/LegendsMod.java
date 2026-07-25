@@ -9,11 +9,15 @@ import com.heiligg.legends.entity.EntityLegendGuardian;
 import com.heiligg.legends.entity.EntityLegendKnight;
 import com.heiligg.legends.entity.EntityLegendWraith;
 import com.heiligg.legends.handler.ArmorAbilityHandler;
+import com.heiligg.legends.handler.CombatHandler;
 import com.heiligg.legends.handler.LootHandler;
 import com.heiligg.legends.handler.TotemHandler;
+import com.heiligg.legends.init.ModRecipes;
 import com.heiligg.legends.item.ItemAscendedArmor;
 import com.heiligg.legends.item.ItemAscendedBlade;
+import com.heiligg.legends.item.ItemAscendedBow;
 import com.heiligg.legends.item.ItemAscendedCore;
+import com.heiligg.legends.item.ItemAscendedStaff;
 import com.heiligg.legends.item.ItemLegendAmulet;
 import com.heiligg.legends.item.ItemLegendElixir;
 import com.heiligg.legends.item.ItemLegendEssence;
@@ -63,7 +67,7 @@ public class LegendsMod {
 
     public static final String MODID = "legends";
     public static final String NAME = "Legends";
-    public static final String VERSION = "2.1.0";
+    public static final String VERSION = "2.2.0";
 
     public static Logger logger;
     public static SimpleNetworkWrapper network;
@@ -78,7 +82,9 @@ public class LegendsMod {
     public static Item legendaryBlade;
     public static Item ascendedBlade;
     public static Item legendaryBow;
+    public static Item ascendedBow;
     public static Item legendaryStaff;
+    public static Item ascendedStaff;
     public static Item legendaryPickaxe;
     public static Item legendaryAxe;
     public static Item legendaryShovel;
@@ -148,6 +154,7 @@ public class LegendsMod {
         registerEntity("legend_knight", EntityLegendKnight.class, 80, 3, true, 0x4A5568, 0x9BD1FF);
 
         MinecraftForge.EVENT_BUS.register(new ArmorAbilityHandler());
+        MinecraftForge.EVENT_BUS.register(new CombatHandler());
         MinecraftForge.EVENT_BUS.register(new LootHandler());
         MinecraftForge.EVENT_BUS.register(new TotemHandler());
         proxy.preInit();
@@ -172,6 +179,7 @@ public class LegendsMod {
             }
         }
 
+        ModRecipes.register();
         proxy.init();
         logger.info("Legends {} initialized", VERSION);
     }
@@ -192,7 +200,9 @@ public class LegendsMod {
         legendaryBlade = item(new ItemLegendaryBlade(LEGENDARY_TOOL), "legendary_blade");
         ascendedBlade = item(new ItemAscendedBlade(ASCENDED_TOOL), "ascended_blade");
         legendaryBow = item(new ItemLegendaryBow(), "legendary_bow");
+        ascendedBow = item(new ItemAscendedBow(), "ascended_bow");
         legendaryStaff = item(new ItemLegendaryStaff(), "legendary_staff");
+        ascendedStaff = item(new ItemAscendedStaff(), "ascended_staff");
         legendaryPickaxe = item(new ItemLegendaryPickaxe(LEGENDARY_TOOL), "legendary_pickaxe");
         legendaryAxe = item(new ItemLegendaryAxe(LEGENDARY_TOOL), "legendary_axe");
         legendaryShovel = item(new ItemLegendaryShovel(LEGENDARY_TOOL), "legendary_shovel");
@@ -217,7 +227,7 @@ public class LegendsMod {
 
         event.getRegistry().registerAll(
                 legendEssence, legendFragment, ascendedCore,
-                legendaryBlade, ascendedBlade, legendaryBow, legendaryStaff,
+                legendaryBlade, ascendedBlade, legendaryBow, ascendedBow, legendaryStaff, ascendedStaff,
                 legendaryPickaxe, legendaryAxe, legendaryShovel, legendaryShield,
                 legendAmulet, legendTotem, legendElixir,
                 legendaryHelmet, legendaryChest, legendaryLegs, legendaryBoots,

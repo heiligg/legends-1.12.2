@@ -77,10 +77,7 @@ public class ItemAscendedBow extends ItemBow {
                 if (punch > 0) {
                     entityArrow.setKnockbackStrength(punch + 1);
                 }
-                if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, stack) > 0 || true) {
-                    // Ascended bows always ignite
-                    entityArrow.setFire(100);
-                }
+                entityArrow.setFire(100);
                 if (yawOffset != 0.0F || creativeAmmo || infinity) {
                     entityArrow.pickupStatus = EntityArrow.PickupStatus.CREATIVE_ONLY;
                 }
