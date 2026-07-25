@@ -1,0 +1,12 @@
+{
+  "parent": "legends:main/root",
+  "display": {
+    "icon": { "item": "legends:iron_man_chest" },
+    "title": { "translate": "advancements.legends.suit_up.title" },
+    "description": { "translate": "advancements.legends.suit_up.description" },
+    "frame": "goal"
+  },
+  "criteria": {
+    "iron": { "trigger": "minecraft:inventory_changed", "conditions": { "items": [{ "item": "legends:iron_man_chest" }] } }
+  }
+}

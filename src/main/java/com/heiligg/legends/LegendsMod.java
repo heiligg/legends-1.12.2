@@ -14,6 +14,7 @@ import com.heiligg.legends.handler.ArmorAbilityHandler;
 import com.heiligg.legends.handler.CombatHandler;
 import com.heiligg.legends.handler.LootHandler;
 import com.heiligg.legends.handler.TotemHandler;
+import com.heiligg.legends.hero.ModHeroes;
 import com.heiligg.legends.init.ModRecipes;
 import com.heiligg.legends.item.ItemAscendedArmor;
 import com.heiligg.legends.item.ItemAscendedBlade;
@@ -70,7 +71,7 @@ public class LegendsMod {
 
     public static final String MODID = "legends";
     public static final String NAME = "Legends";
-    public static final String VERSION = "2.3.0";
+    public static final String VERSION = "3.0.0";
 
     public static Logger logger;
     public static SimpleNetworkWrapper network;
@@ -153,6 +154,7 @@ public class LegendsMod {
         network.registerMessage(DashPacket.Handler.class, DashPacket.class, nextPacketId(), Side.SERVER);
         network.registerMessage(ShockwavePacket.Handler.class, ShockwavePacket.class, nextPacketId(), Side.SERVER);
         network.registerMessage(StaffBoltPacket.Handler.class, StaffBoltPacket.class, nextPacketId(), Side.SERVER);
+        ModHeroes.preInit(nextPacketId());
 
         registerEntity("arcane_bolt", EntityArcaneBolt.class, 64, 1, true, -1, -1);
         registerEntity("legend_wraith", EntityLegendWraith.class, 80, 3, true, 0x2A6F8F, 0x7FDFFF);
@@ -248,6 +250,7 @@ public class LegendsMod {
                 ascendedHelmet, ascendedChest, ascendedLegs, ascendedBoots,
                 legendOreItem, netherLegendOreItem, legendBrickItem, legendAltarItem
         );
+        ModHeroes.registerItems(event.getRegistry());
     }
 
     private static Item item(Item item, String name) {

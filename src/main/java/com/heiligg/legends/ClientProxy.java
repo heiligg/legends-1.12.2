@@ -9,6 +9,9 @@ import com.heiligg.legends.entity.EntityLegendKnight;
 import com.heiligg.legends.entity.EntityLegendWraith;
 import com.heiligg.legends.handler.KeyInputHandler;
 import com.heiligg.legends.handler.LegendHUD;
+import com.heiligg.legends.hero.HeroHUD;
+import com.heiligg.legends.hero.HeroKeyHandler;
+import com.heiligg.legends.hero.ModHeroes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.entity.Render;
@@ -31,8 +34,11 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void preInit() {
         KeyInputHandler.registerKeyBindings();
+        HeroKeyHandler.registerKeyBindings();
         MinecraftForge.EVENT_BUS.register(new KeyInputHandler());
+        MinecraftForge.EVENT_BUS.register(new HeroKeyHandler());
         MinecraftForge.EVENT_BUS.register(new LegendHUD());
+        MinecraftForge.EVENT_BUS.register(new HeroHUD());
 
         RenderingRegistry.registerEntityRenderingHandler(EntityArcaneBolt.class, new IRenderFactory<EntityArcaneBolt>() {
             @Override
@@ -73,6 +79,9 @@ public class ClientProxy extends CommonProxy {
                 LegendsMod.legendOreItem, LegendsMod.netherLegendOreItem, LegendsMod.legendBrickItem, LegendsMod.legendAltarItem
         };
         for (Item item : items) {
+            registerItemModel(item);
+        }
+        for (Item item : ModHeroes.allItems()) {
             registerItemModel(item);
         }
     }

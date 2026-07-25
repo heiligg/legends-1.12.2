@@ -57,3 +57,22 @@ item.legends.ascended_bow.name=Ascended Bow
 item.legends.ascended_staff.name=Ascended Staff
 tile.legends.nether_legend_ore.name=Nether Legend Ore
 enchantment.legends.legend_strike=Legend Strike
+
+item.legends.iron_man_helmet.name=Iron Man Helmet
+item.legends.iron_man_chest.name=Iron Man Chestplate
+item.legends.iron_man_legs.name=Iron Man Leggings
+item.legends.iron_man_boots.name=Iron Man Boots
+item.legends.spider_man_helmet.name=Spider-Man Mask
+item.legends.spider_man_chest.name=Spider-Man Suit
+item.legends.spider_man_legs.name=Spider-Man Leggings
+item.legends.spider_man_boots.name=Spider-Man Boots
+item.legends.flash_helmet.name=Flash Cowl
+item.legends.flash_chest.name=Flash Suit
+item.legends.flash_legs.name=Flash Leggings
+item.legends.flash_boots.name=Flash Boots
+
+key.legends.hero_ability=Hero Ability
+key.legends.hero_flight=Hero Flight Toggle
+
+advancements.legends.suit_up.title=Suit Up
+advancements.legends.suit_up.description=Craft an Iron Man chestplate
