@@ -52,13 +52,6 @@ public class ItemHeroArmor extends ItemArmor {
         setEnergy(stack, getEnergy(stack) - amount);
     }
 
-    public void recharge(ItemStack stack) {
-        int energy = getEnergy(stack);
-        if (energy < heroType.maxEnergy) {
-            setEnergy(stack, energy + 1);
-        }
-    }
-
     private void ensureTag(ItemStack stack) {
         if (!stack.hasTagCompound()) {
             stack.setTagCompound(new NBTTagCompound());
@@ -97,17 +90,26 @@ public class ItemHeroArmor extends ItemArmor {
     @SideOnly(Side.CLIENT)
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(TextFormatting.YELLOW + heroType.displayName + " Suit");
+        tooltip.add(TextFormatting.YELLOW + heroType.displayName + " Suit Piece");
         tooltip.add(TextFormatting.AQUA + "Energy: " + getEnergy(stack) + "/" + heroType.maxEnergy);
+        tooltip.add(TextFormatting.DARK_GRAY + "Wear the full set to unlock abilities.");
         switch (heroType) {
             case IRON_MAN:
-                tooltip.add(TextFormatting.GOLD + "Full set: Flight (F), Repulsor (G)");
+                tooltip.add(TextFormatting.GOLD + "G Repulsor | F Flight | V Unibeam");
+                tooltip.add(TextFormatting.GRAY + "Sprint while flying for thruster boost");
                 break;
             case SPIDER_MAN:
-                tooltip.add(TextFormatting.GOLD + "Full set: Leap, Web Zip (G)");
+                tooltip.add(TextFormatting.GOLD + "G Web Zip | F Web Shot | V Spider Leap");
+                tooltip.add(TextFormatting.GRAY + "Sneak in air to glide / cling to walls");
+                tooltip.add(TextFormatting.GRAY + "Spider-Sense warns of nearby mobs");
                 break;
             case FLASH:
-                tooltip.add(TextFormatting.GOLD + "Full set: Speed, Burst (G)");
+                tooltip.add(TextFormatting.GOLD + "G Burst | F Speed Force | V Blink");
+                tooltip.add(TextFormatting.GRAY + "Sprint on water; momentum melee bonus");
+                break;
+            case CAPTAIN_AMERICA:
+                tooltip.add(TextFormatting.GOLD + "G Shield Throw | F Bash | V Rally");
+                tooltip.add(TextFormatting.GRAY + "Craft Vibranium Shield; sneak-RMB to throw");
                 break;
             default:
                 break;

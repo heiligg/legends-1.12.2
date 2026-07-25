@@ -10,6 +10,9 @@ import com.heiligg.legends.entity.EntityArcaneBolt;
 import com.heiligg.legends.entity.EntityLegendGuardian;
 import com.heiligg.legends.entity.EntityLegendKnight;
 import com.heiligg.legends.entity.EntityLegendWraith;
+import com.heiligg.legends.entity.EntityRepulsorBlast;
+import com.heiligg.legends.entity.EntityVibraniumShield;
+import com.heiligg.legends.entity.EntityWebShot;
 import com.heiligg.legends.handler.ArmorAbilityHandler;
 import com.heiligg.legends.handler.CombatHandler;
 import com.heiligg.legends.handler.LootHandler;
@@ -71,7 +74,7 @@ public class LegendsMod {
 
     public static final String MODID = "legends";
     public static final String NAME = "Legends";
-    public static final String VERSION = "3.0.0";
+    public static final String VERSION = "3.5.0";
 
     public static Logger logger;
     public static SimpleNetworkWrapper network;
@@ -157,6 +160,9 @@ public class LegendsMod {
         ModHeroes.preInit(nextPacketId());
 
         registerEntity("arcane_bolt", EntityArcaneBolt.class, 64, 1, true, -1, -1);
+        registerEntity("repulsor_blast", EntityRepulsorBlast.class, 64, 1, true, -1, -1);
+        registerEntity("web_shot", EntityWebShot.class, 64, 1, true, -1, -1);
+        registerEntity("vibranium_shield", EntityVibraniumShield.class, 64, 1, true, -1, -1);
         registerEntity("legend_wraith", EntityLegendWraith.class, 80, 3, true, 0x2A6F8F, 0x7FDFFF);
         registerEntity("legend_guardian", EntityLegendGuardian.class, 96, 3, true, 0x1A2A6A, 0xC080FF);
         registerEntity("legend_knight", EntityLegendKnight.class, 80, 3, true, 0x4A5568, 0x9BD1FF);

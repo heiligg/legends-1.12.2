@@ -1,6 +1,7 @@
 package com.heiligg.legends.hero;
 
 import com.heiligg.legends.LegendsMod;
+import com.heiligg.legends.item.ItemVibraniumShield;
 import com.heiligg.legends.network.HeroAbilityPacket;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
@@ -18,10 +19,13 @@ public final class ModHeroes {
     public static ItemArmor.ArmorMaterial IRON_MAN_MATERIAL;
     public static ItemArmor.ArmorMaterial SPIDER_MAN_MATERIAL;
     public static ItemArmor.ArmorMaterial FLASH_MATERIAL;
+    public static ItemArmor.ArmorMaterial CAP_MATERIAL;
 
     public static Item ironManHelmet, ironManChest, ironManLegs, ironManBoots;
     public static Item spiderManHelmet, spiderManChest, spiderManLegs, spiderManBoots;
     public static Item flashHelmet, flashChest, flashLegs, flashBoots;
+    public static Item capHelmet, capChest, capLegs, capBoots;
+    public static Item vibraniumShield;
 
     private static final List<Item> ALL = new ArrayList<Item>();
 
@@ -34,14 +38,15 @@ public final class ModHeroes {
     }
 
     public static void registerItems(IForgeRegistry<Item> registry) {
-        // Materials must be created here: RegistryEvent fires before FML preInit on 1.12.
         if (IRON_MAN_MATERIAL == null) {
             IRON_MAN_MATERIAL = EnumHelper.addArmorMaterial("IRON_MAN_HERO", LegendsMod.MODID + ":iron_man",
-                    42, new int[]{3, 8, 6, 3}, 20, net.minecraft.init.SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2.5F);
+                    48, new int[]{3, 8, 6, 3}, 22, net.minecraft.init.SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2.5F);
             SPIDER_MAN_MATERIAL = EnumHelper.addArmorMaterial("SPIDER_MAN_HERO", LegendsMod.MODID + ":spider_man",
-                    35, new int[]{2, 7, 5, 2}, 18, net.minecraft.init.SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1.0F);
+                    40, new int[]{2, 7, 6, 2}, 20, net.minecraft.init.SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1.5F);
             FLASH_MATERIAL = EnumHelper.addArmorMaterial("FLASH_HERO", LegendsMod.MODID + ":flash",
-                    34, new int[]{2, 6, 5, 2}, 22, net.minecraft.init.SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1.0F);
+                    38, new int[]{2, 6, 5, 2}, 24, net.minecraft.init.SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1.0F);
+            CAP_MATERIAL = EnumHelper.addArmorMaterial("CAPTAIN_AMERICA_HERO", LegendsMod.MODID + ":captain_america",
+                    50, new int[]{3, 8, 6, 3}, 18, net.minecraft.init.SoundEvents.ITEM_ARMOR_EQUIP_IRON, 2.0F);
         }
 
         ALL.clear();
@@ -60,6 +65,13 @@ public final class ModHeroes {
         flashChest = hero(new ItemHeroArmor(FLASH_MATERIAL, 1, EntityEquipmentSlot.CHEST, HeroType.FLASH), "flash_chest");
         flashLegs = hero(new ItemHeroArmor(FLASH_MATERIAL, 2, EntityEquipmentSlot.LEGS, HeroType.FLASH), "flash_legs");
         flashBoots = hero(new ItemHeroArmor(FLASH_MATERIAL, 1, EntityEquipmentSlot.FEET, HeroType.FLASH), "flash_boots");
+
+        capHelmet = hero(new ItemHeroArmor(CAP_MATERIAL, 1, EntityEquipmentSlot.HEAD, HeroType.CAPTAIN_AMERICA), "captain_america_helmet");
+        capChest = hero(new ItemHeroArmor(CAP_MATERIAL, 1, EntityEquipmentSlot.CHEST, HeroType.CAPTAIN_AMERICA), "captain_america_chest");
+        capLegs = hero(new ItemHeroArmor(CAP_MATERIAL, 2, EntityEquipmentSlot.LEGS, HeroType.CAPTAIN_AMERICA), "captain_america_legs");
+        capBoots = hero(new ItemHeroArmor(CAP_MATERIAL, 1, EntityEquipmentSlot.FEET, HeroType.CAPTAIN_AMERICA), "captain_america_boots");
+
+        vibraniumShield = hero(new ItemVibraniumShield(), "vibranium_shield");
 
         registry.registerAll(ALL.toArray(new Item[0]));
     }

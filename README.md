@@ -1,26 +1,34 @@
 # Legends (Minecraft 1.12.2)
 
-Forge adventure/combat mod with legendary gear, shrines, ruins, a guardian boss, ascended endgame, and **superhero suits**.
+Forge adventure mod with legendary gear, world content, bosses, and **full superhero suit kits**.
 
-## Superheroes (v3.0)
+## Superheroes (v3.5) — full kits
 
-Craft a full suit, then use hero abilities:
+Controls (full suit required): **G** primary · **F** secondary · **V** special
 
-| Suit | Set bonus | Keys |
-|------|-----------|------|
-| **Iron Man** | Resistance, fire resist | **F** flight toggle, **G** repulsor |
-| **Spider-Man** | Jump + speed, sneak slow-fall | **G** web zip |
-| **Flash** | Speed III + haste | **G** speed burst |
+### Iron Man
+- Set: resistance, fire immunity, strength, mining boost
+- **G** Repulsor blast · **F** Flight toggle · **V** Unibeam
+- Sprint while flying for thruster boost + energy drain
+- Night vision while airborne; thruster particles; Jarvis status lines
 
-Each suit piece uses suit energy (HUD bar). Craft with Legend Essence + themed materials (iron/redstone, string/spider eye, gold/redstone).
+### Spider-Man
+- Set: jump, speed, night vision; no fall damage
+- **G** Web Zip · **F** Web Shot (slow/weaken) · **V** Spider Leap
+- Sneak in air = glide; sneak + wall = cling
+- Spider-Sense alerts when hostiles are nearby
 
-## Progression
+### Flash
+- Set: speed + haste; no fall damage
+- **G** Speed Burst · **F** Speed Force toggle · **V** Blink teleport
+- Water running while sprinting; lightning trail
+- Speed Force: huge haste/mining; sprint hits deal bonus damage
 
-1. Mine **Legend Ore**, fight **Wraiths**, loot **shrines/ruins**
-2. Craft **Legend Essence** and forge legendary / hero gear
-3. Clear **ruins** guarded by **Legend Knights**
-4. Offer essence at a **Legend Altar** to fight the **Legend Guardian**
-5. Upgrade with **Ascended Core** into ascended gear
+### Captain America
+- Set: resistance + absorption
+- **G** Shield throw (needs Vibranium Shield) · **F** Shield Bash AOE · **V** Rally buffs
+- Vibranium Shield: hold RMB block; sneak+RMB throw (returns)
+- Reduced fall damage; stronger blocking
 
 ## Build
 
@@ -29,4 +37,4 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 ./gradlew build
 ```
 
-Jar: `build/libs/legends-3.0.0.jar`
+Jar: `build/libs/legends-3.5.0.jar`

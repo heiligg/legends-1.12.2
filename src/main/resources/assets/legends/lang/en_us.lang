@@ -76,3 +76,13 @@ key.legends.hero_flight=Hero Flight Toggle
 
 advancements.legends.suit_up.title=Suit Up
 advancements.legends.suit_up.description=Craft an Iron Man chestplate
+
+item.legends.captain_america_helmet.name=Captain America Helmet
+item.legends.captain_america_chest.name=Captain America Chestplate
+item.legends.captain_america_legs.name=Captain America Leggings
+item.legends.captain_america_boots.name=Captain America Boots
+item.legends.vibranium_shield.name=Vibranium Shield
+
+key.legends.hero_primary=Hero Primary Ability
+key.legends.hero_secondary=Hero Secondary Ability
+key.legends.hero_special=Hero Special Ability

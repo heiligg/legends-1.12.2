@@ -7,6 +7,9 @@ import com.heiligg.legends.entity.EntityArcaneBolt;
 import com.heiligg.legends.entity.EntityLegendGuardian;
 import com.heiligg.legends.entity.EntityLegendKnight;
 import com.heiligg.legends.entity.EntityLegendWraith;
+import com.heiligg.legends.entity.EntityRepulsorBlast;
+import com.heiligg.legends.entity.EntityVibraniumShield;
+import com.heiligg.legends.entity.EntityWebShot;
 import com.heiligg.legends.handler.KeyInputHandler;
 import com.heiligg.legends.handler.LegendHUD;
 import com.heiligg.legends.hero.HeroHUD;
@@ -44,6 +47,24 @@ public class ClientProxy extends CommonProxy {
             @Override
             public Render<? super EntityArcaneBolt> createRenderFor(RenderManager manager) {
                 return new RenderSnowball<EntityArcaneBolt>(manager, Items.ENDER_PEARL, Minecraft.getMinecraft().getRenderItem());
+            }
+        });
+        RenderingRegistry.registerEntityRenderingHandler(EntityRepulsorBlast.class, new IRenderFactory<EntityRepulsorBlast>() {
+            @Override
+            public Render<? super EntityRepulsorBlast> createRenderFor(RenderManager manager) {
+                return new RenderSnowball<EntityRepulsorBlast>(manager, Items.FIRE_CHARGE, Minecraft.getMinecraft().getRenderItem());
+            }
+        });
+        RenderingRegistry.registerEntityRenderingHandler(EntityWebShot.class, new IRenderFactory<EntityWebShot>() {
+            @Override
+            public Render<? super EntityWebShot> createRenderFor(RenderManager manager) {
+                return new RenderSnowball<EntityWebShot>(manager, Items.STRING, Minecraft.getMinecraft().getRenderItem());
+            }
+        });
+        RenderingRegistry.registerEntityRenderingHandler(EntityVibraniumShield.class, new IRenderFactory<EntityVibraniumShield>() {
+            @Override
+            public Render<? super EntityVibraniumShield> createRenderFor(RenderManager manager) {
+                return new RenderSnowball<EntityVibraniumShield>(manager, Items.SHIELD, Minecraft.getMinecraft().getRenderItem());
             }
         });
         RenderingRegistry.registerEntityRenderingHandler(EntityLegendWraith.class, new IRenderFactory<EntityLegendWraith>() {

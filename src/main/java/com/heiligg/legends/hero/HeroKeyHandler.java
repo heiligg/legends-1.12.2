@@ -12,32 +12,33 @@ import org.lwjgl.input.Keyboard;
 
 public class HeroKeyHandler {
 
-    public static KeyBinding ABILITY_KEY;
-    public static KeyBinding FLIGHT_KEY;
+    public static KeyBinding PRIMARY_KEY;
+    public static KeyBinding SECONDARY_KEY;
+    public static KeyBinding SPECIAL_KEY;
 
     public static void registerKeyBindings() {
-        ABILITY_KEY = new KeyBinding("key.legends.hero_ability", Keyboard.KEY_G, "key.categories.legends");
-        FLIGHT_KEY = new KeyBinding("key.legends.hero_flight", Keyboard.KEY_F, "key.categories.legends");
-        ClientRegistry.registerKeyBinding(ABILITY_KEY);
-        ClientRegistry.registerKeyBinding(FLIGHT_KEY);
+        PRIMARY_KEY = new KeyBinding("key.legends.hero_primary", Keyboard.KEY_G, "key.categories.legends");
+        SECONDARY_KEY = new KeyBinding("key.legends.hero_secondary", Keyboard.KEY_F, "key.categories.legends");
+        SPECIAL_KEY = new KeyBinding("key.legends.hero_special", Keyboard.KEY_V, "key.categories.legends");
+        ClientRegistry.registerKeyBinding(PRIMARY_KEY);
+        ClientRegistry.registerKeyBinding(SECONDARY_KEY);
+        ClientRegistry.registerKeyBinding(SPECIAL_KEY);
     }
 
     @SubscribeEvent
     public void onKeyInput(InputEvent.KeyInputEvent event) {
         EntityPlayer player = Minecraft.getMinecraft().player;
-        if (player == null) {
+        if (player == null || ItemHeroArmor.getWornHeroSet(player) == null) {
             return;
         }
-        HeroType set = ItemHeroArmor.getWornHeroSet(player);
-        if (set == null) {
-            return;
-        }
-
-        if (ABILITY_KEY != null && ABILITY_KEY.isPressed()) {
+        if (PRIMARY_KEY != null && PRIMARY_KEY.isPressed()) {
             LegendsMod.network.sendToServer(new HeroAbilityPacket(0));
         }
-        if (FLIGHT_KEY != null && FLIGHT_KEY.isPressed() && set == HeroType.IRON_MAN) {
+        if (SECONDARY_KEY != null && SECONDARY_KEY.isPressed()) {
             LegendsMod.network.sendToServer(new HeroAbilityPacket(1));
+        }
+        if (SPECIAL_KEY != null && SPECIAL_KEY.isPressed()) {
+            LegendsMod.network.sendToServer(new HeroAbilityPacket(2));
         }
     }
 }
