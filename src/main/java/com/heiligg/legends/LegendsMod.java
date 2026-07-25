@@ -9,8 +9,10 @@ import com.heiligg.legends.item.ItemLegendAmulet;
 import com.heiligg.legends.item.ItemLegendEssence;
 import com.heiligg.legends.item.ItemLegendFragment;
 import com.heiligg.legends.item.ItemLegendaryArmor;
+import com.heiligg.legends.item.ItemLegendaryAxe;
 import com.heiligg.legends.item.ItemLegendaryBlade;
 import com.heiligg.legends.item.ItemLegendaryBow;
+import com.heiligg.legends.item.ItemLegendaryPickaxe;
 import com.heiligg.legends.item.ItemLegendaryStaff;
 import com.heiligg.legends.network.DashPacket;
 import com.heiligg.legends.network.ShockwavePacket;
@@ -45,7 +47,7 @@ public class LegendsMod {
 
     public static final String MODID = "legends";
     public static final String NAME = "Legends";
-    public static final String VERSION = "1.2.0";
+    public static final String VERSION = "1.3.0";
 
     public static Logger logger;
     public static SimpleNetworkWrapper network;
@@ -57,6 +59,8 @@ public class LegendsMod {
     public static Item legendaryBlade;
     public static Item legendaryBow;
     public static Item legendaryStaff;
+    public static Item legendaryPickaxe;
+    public static Item legendaryAxe;
     public static Item legendAmulet;
     public static Item legendaryHelmet;
     public static Item legendaryChest;
@@ -167,6 +171,16 @@ public class LegendsMod {
                 .setUnlocalizedName(MODID + ".legendary_staff")
                 .setCreativeTab(TAB);
 
+        legendaryPickaxe = new ItemLegendaryPickaxe(LEGENDARY_TOOL)
+                .setRegistryName(MODID, "legendary_pickaxe")
+                .setUnlocalizedName(MODID + ".legendary_pickaxe")
+                .setCreativeTab(TAB);
+
+        legendaryAxe = new ItemLegendaryAxe(LEGENDARY_TOOL)
+                .setRegistryName(MODID, "legendary_axe")
+                .setUnlocalizedName(MODID + ".legendary_axe")
+                .setCreativeTab(TAB);
+
         legendAmulet = new ItemLegendAmulet()
                 .setRegistryName(MODID, "legend_amulet")
                 .setUnlocalizedName(MODID + ".legend_amulet")
@@ -202,6 +216,8 @@ public class LegendsMod {
                 legendaryBlade,
                 legendaryBow,
                 legendaryStaff,
+                legendaryPickaxe,
+                legendaryAxe,
                 legendAmulet,
                 legendaryHelmet,
                 legendaryChest,

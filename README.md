@@ -9,6 +9,7 @@ Forge mod that adds legendary armor, weapons, trinkets, ore, and hero abilities.
 - **Legendary Blade** – high-damage sword with a shockwave special
 - **Legendary Bow** – fires a triple volley with bonus damage
 - **Legendary Staff** – launches arcane bolt projectiles
+- **Legendary Pickaxe / Axe** – faster mining and sneak multi-log clearing
 - **Legend Amulet** – hotbar/offhand trinket for Night Vision and Speed
 - **Legend Essence** – crafting material (also found in dungeon-like loot chests)
 - Power HUD while wearing legendary armor
@@ -27,7 +28,7 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 ./gradlew build
 ```
 
-The mod jar is written to `build/libs/legends-1.2.0.jar`.
+The mod jar is written to `build/libs/legends-1.3.0.jar`.
 
 ## Controls
 

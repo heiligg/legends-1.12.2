@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EEE",
+    " S ",
+    " S "
+  ],
+  "key": {
+    "E": { "item": "legends:legend_essence" },
+    "S": { "item": "minecraft:stick" }
+  },
+  "result": { "item": "legends:legendary_pickaxe" }
+}
