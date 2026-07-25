@@ -279,7 +279,7 @@ public class HeroAbilityPacket implements IMessage {
                     }
                 }
                 armor.consumeEnergy(chest, 22);
-                player.world.playSound(null, player.getPosition(), SoundEvents.ENTITY_LIGHTNING_IMPACT, SoundCategory.PLAYERS, 0.7F, 1.5F);
+                player.world.playSound(null, player.getPosition(), SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundCategory.PLAYERS, 0.35F, 1.8F);
             }
         }
 
@@ -490,16 +490,34 @@ public class HeroAbilityPacket implements IMessage {
         }
 
         private void handleSpider(EntityPlayerMP player, ItemHeroArmor armor, ItemStack chest, int mode) {
-            if (mode == 0) {
+            if (mode == 0) { // Web zip — pull toward looked block, else dash
                 if (armor.getEnergy(chest) < 8 || !HeroAbilityHandler.readyPrimary(player, 15)) {
                     return;
                 }
                 Vec3d look = player.getLookVec();
-                player.addVelocity(look.x * 1.85D, Math.max(0.4D, look.y * 1.25D + 0.35D), look.z * 1.85D);
+                Vec3d eye = player.getPositionEyes(1.0F);
+                Vec3d end = eye.addVector(look.x * 18.0D, look.y * 18.0D, look.z * 18.0D);
+                net.minecraft.util.math.RayTraceResult hit = player.world.rayTraceBlocks(eye, end, false, true, false);
+                if (hit != null && hit.typeOfHit == net.minecraft.util.math.RayTraceResult.Type.BLOCK) {
+                    double dx = hit.hitVec.x - player.posX;
+                    double dy = hit.hitVec.y - (player.posY + player.getEyeHeight() * 0.5D);
+                    double dz = hit.hitVec.z - player.posZ;
+                    double dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+                    if (dist > 0.5D) {
+                        double scale = Math.min(2.4D, 1.1D + dist * 0.08D) / dist;
+                        player.addVelocity(dx * scale, dy * scale + 0.15D, dz * scale);
+                    }
+                } else {
+                    player.addVelocity(look.x * 1.85D, Math.max(0.4D, look.y * 1.25D + 0.35D), look.z * 1.85D);
+                }
                 player.velocityChanged = true;
                 player.fallDistance = 0.0F;
                 armor.consumeEnergy(chest, 8);
                 player.world.playSound(null, player.getPosition(), SoundEvents.ENTITY_SLIME_JUMP, SoundCategory.PLAYERS, 0.9F, 1.9F);
+                if (player.world instanceof WorldServer) {
+                    ((WorldServer) player.world).spawnParticle(EnumParticleTypes.CLOUD,
+                            player.posX, player.posY + 1.0D, player.posZ, 12, 0.3D, 0.3D, 0.3D, 0.02D);
+                }
                 return;
             }
             if (mode == 1) {

@@ -1,4 +1,5 @@
 itemGroup.legends=Legends
+itemGroup.legends_heroes=Legends Heroes
 
 item.legends.legend_essence.name=Legend Essence
 item.legends.legend_fragment.name=Legend Fragment
@@ -103,18 +104,31 @@ item.legends.flash_chest.name=Flash Suit
 item.legends.flash_legs.name=Flash Leggings
 item.legends.flash_boots.name=Flash Boots
 
-key.legends.hero_ability=Hero Ability
-key.legends.hero_flight=Hero Flight Toggle
-
-advancements.legends.suit_up.title=Suit Up
-advancements.legends.suit_up.description=Craft an Iron Man chestplate
-
 item.legends.captain_america_helmet.name=Captain America Helmet
 item.legends.captain_america_chest.name=Captain America Chestplate
 item.legends.captain_america_legs.name=Captain America Leggings
 item.legends.captain_america_boots.name=Captain America Boots
 item.legends.vibranium_shield.name=Vibranium Shield
 
-key.legends.hero_primary=Hero Primary Ability
-key.legends.hero_secondary=Hero Secondary Ability
-key.legends.hero_special=Hero Special Ability
+key.legends.hero_primary=Hero Primary (G)
+key.legends.hero_secondary=Hero Secondary (F)
+key.legends.hero_special=Hero Special (V)
+
+advancements.legends.hero_root.title=Call of Heroes
+advancements.legends.hero_root.description=Craft any hero chestplate
+advancements.legends.suit_up.title=Suit Up
+advancements.legends.suit_up.description=Craft the Mark III Iron Man chestplate
+advancements.legends.spider_suit.title=With Great Power
+advancements.legends.spider_suit.description=Craft the Spider-Man suit
+advancements.legends.flash_suit.title=Speed Force
+advancements.legends.flash_suit.description=Craft the Flash suit
+advancements.legends.captain_suit.title=First Avenger
+advancements.legends.captain_suit.description=Craft the Captain America suit
+advancements.legends.vibranium_shield.title=I Can Do This All Day
+advancements.legends.vibranium_shield.description=Craft the Vibranium Shield
+advancements.legends.war_machine.title=War Machine
+advancements.legends.war_machine.description=Forge the War Machine armor
+advancements.legends.mark_l.title=Bleeding Edge
+advancements.legends.mark_l.description=Forge the Mark L nanotech suit
+advancements.legends.heroes_assemble.title=Assemble
+advancements.legends.heroes_assemble.description=Collect Iron Man, Spider-Man, Flash, and Captain America chestplates

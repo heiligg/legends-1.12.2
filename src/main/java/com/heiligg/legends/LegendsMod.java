@@ -74,7 +74,7 @@ public class LegendsMod {
 
     public static final String MODID = "legends";
     public static final String NAME = "Legends";
-    public static final String VERSION = "3.6.0";
+    public static final String VERSION = "4.0.0";
 
     public static Logger logger;
     public static SimpleNetworkWrapper network;
@@ -157,7 +157,7 @@ public class LegendsMod {
         network.registerMessage(DashPacket.Handler.class, DashPacket.class, nextPacketId(), Side.SERVER);
         network.registerMessage(ShockwavePacket.Handler.class, ShockwavePacket.class, nextPacketId(), Side.SERVER);
         network.registerMessage(StaffBoltPacket.Handler.class, StaffBoltPacket.class, nextPacketId(), Side.SERVER);
-        ModHeroes.preInit(nextPacketId());
+        ModHeroes.preInit(nextPacketId(), nextPacketId());
 
         registerEntity("arcane_bolt", EntityArcaneBolt.class, 64, 1, true, -1, -1);
         registerEntity("repulsor_blast", EntityRepulsorBlast.class, 64, 1, true, -1, -1);

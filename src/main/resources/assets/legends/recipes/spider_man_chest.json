@@ -1,1 +1,1 @@
-{"type":"minecraft:crafting_shaped","pattern":["S S","SES","SXS"],"key":{"S":{"item":"minecraft:string"},"E":{"item":"legends:legend_essence"},"X":{"item":"minecraft:spider_eye"}},"result":{"item":"legends:spider_man_chest"}}
+{"type": "minecraft:crafting_shaped", "pattern": ["S S", "SES", "IXI"], "key": {"S": {"item": "minecraft:string"}, "E": {"item": "legends:legend_essence"}, "I": {"item": "minecraft:iron_ingot"}, "X": {"item": "minecraft:spider_eye"}}, "result": {"item": "legends:spider_man_chest"}}

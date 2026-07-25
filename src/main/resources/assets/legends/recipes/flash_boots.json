@@ -1,1 +1,1 @@
-{"type":"minecraft:crafting_shaped","pattern":["G G","E E"],"key":{"G":{"item":"minecraft:gold_ingot"},"E":{"item":"legends:legend_essence"}},"result":{"item":"legends:flash_boots"}}
+{"type": "minecraft:crafting_shaped", "pattern": ["G G", "E E"], "key": {"G": {"item": "minecraft:gold_ingot"}, "E": {"item": "legends:legend_essence"}}, "result": {"item": "legends:flash_boots"}}

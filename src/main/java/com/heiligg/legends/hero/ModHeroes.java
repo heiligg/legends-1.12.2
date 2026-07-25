@@ -3,9 +3,12 @@ package com.heiligg.legends.hero;
 import com.heiligg.legends.LegendsMod;
 import com.heiligg.legends.item.ItemVibraniumShield;
 import com.heiligg.legends.network.HeroAbilityPacket;
+import com.heiligg.legends.network.HeroStatePacket;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
@@ -38,11 +41,19 @@ public final class ModHeroes {
 
     private static final List<Item> ALL = new ArrayList<Item>();
 
+    public static final CreativeTabs HEROES_TAB = new CreativeTabs("legends_heroes") {
+        @Override
+        public ItemStack getTabIconItem() {
+            return new ItemStack(ironManChest != null ? ironManChest : Item.getItemById(306));
+        }
+    };
+
     private ModHeroes() {
     }
 
-    public static void preInit(int packetId) {
-        LegendsMod.network.registerMessage(HeroAbilityPacket.Handler.class, HeroAbilityPacket.class, packetId, Side.SERVER);
+    public static void preInit(int abilityPacketId, int statePacketId) {
+        LegendsMod.network.registerMessage(HeroAbilityPacket.Handler.class, HeroAbilityPacket.class, abilityPacketId, Side.SERVER);
+        LegendsMod.network.registerMessage(HeroStatePacket.Handler.class, HeroStatePacket.class, statePacketId, Side.CLIENT);
         MinecraftForge.EVENT_BUS.register(new HeroAbilityHandler());
     }
 
@@ -134,7 +145,7 @@ public final class ModHeroes {
     private static Item hero(Item item, String name) {
         item.setRegistryName(LegendsMod.MODID, name)
                 .setUnlocalizedName(LegendsMod.MODID + "." + name)
-                .setCreativeTab(LegendsMod.TAB);
+                .setCreativeTab(HEROES_TAB);
         ALL.add(item);
         return item;
     }

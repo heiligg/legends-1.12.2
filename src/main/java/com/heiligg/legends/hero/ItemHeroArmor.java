@@ -96,6 +96,7 @@ public class ItemHeroArmor extends ItemArmor {
         switch (heroType) {
             case SPIDER_MAN:
                 tooltip.add(TextFormatting.GOLD + "G Web Zip | F Web Shot | V Spider Leap");
+                tooltip.add(TextFormatting.GRAY + "Look at a block + G to zip toward it");
                 tooltip.add(TextFormatting.GRAY + "Sneak in air to glide / cling to walls");
                 tooltip.add(TextFormatting.GRAY + "Spider-Sense warns of nearby mobs");
                 break;

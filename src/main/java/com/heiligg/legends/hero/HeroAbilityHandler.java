@@ -1,8 +1,11 @@
 package com.heiligg.legends.hero;
 
+import com.heiligg.legends.LegendsMod;
+import com.heiligg.legends.network.HeroStatePacket;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -18,8 +21,8 @@ import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,17 +32,48 @@ public class HeroAbilityHandler {
 
     private static final Map<UUID, Boolean> IRON_FLIGHT = new HashMap<UUID, Boolean>();
     private static final Map<UUID, Boolean> FLASH_SPEED_FORCE = new HashMap<UUID, Boolean>();
+    private static final Map<UUID, Boolean> CLIENT_IRON_FLIGHT = new HashMap<UUID, Boolean>();
+    private static final Map<UUID, Boolean> CLIENT_SPEED_FORCE = new HashMap<UUID, Boolean>();
+    private static final Map<UUID, Integer> CLIENT_CLOAK_TICKS = new HashMap<UUID, Integer>();
     private static final Map<UUID, Long> COOLDOWN_PRIMARY = new HashMap<UUID, Long>();
     private static final Map<UUID, Long> COOLDOWN_SECONDARY = new HashMap<UUID, Long>();
     private static final Map<UUID, Long> COOLDOWN_SPECIAL = new HashMap<UUID, Long>();
     private static final Map<UUID, Integer> SPIDER_SENSE_CD = new HashMap<UUID, Integer>();
     private static final Map<UUID, Integer> CLOAK_TICKS = new HashMap<UUID, Integer>();
 
+    public static void applyClientState(UUID id, boolean flight, boolean speedForce, int cloakTicks) {
+        CLIENT_IRON_FLIGHT.put(id, flight);
+        CLIENT_SPEED_FORCE.put(id, speedForce);
+        CLIENT_CLOAK_TICKS.put(id, cloakTicks);
+    }
+
+    public static void syncState(EntityPlayer player) {
+        if (player.world.isRemote || LegendsMod.network == null) {
+            return;
+        }
+        UUID id = player.getUniqueID();
+        HeroStatePacket pkt = new HeroStatePacket(
+                id,
+                IRON_FLIGHT.getOrDefault(id, false),
+                FLASH_SPEED_FORCE.getOrDefault(id, false),
+                CLOAK_TICKS.getOrDefault(id, 0)
+        );
+        if (player instanceof EntityPlayerMP) {
+            LegendsMod.network.sendTo(pkt, (EntityPlayerMP) player);
+        }
+    }
+
     public static void setIronFlight(EntityPlayer player, boolean flying) {
         IRON_FLIGHT.put(player.getUniqueID(), flying);
+        if (!player.world.isRemote) {
+            syncState(player);
+        }
     }
 
     public static boolean isIronFlight(EntityPlayer player) {
+        if (player.world.isRemote) {
+            return CLIENT_IRON_FLIGHT.getOrDefault(player.getUniqueID(), false);
+        }
         return IRON_FLIGHT.getOrDefault(player.getUniqueID(), false);
     }
 
@@ -48,18 +82,30 @@ public class HeroAbilityHandler {
     }
 
     public static boolean isSpeedForce(EntityPlayer player) {
+        if (player.world.isRemote) {
+            return CLIENT_SPEED_FORCE.getOrDefault(player.getUniqueID(), false);
+        }
         return FLASH_SPEED_FORCE.getOrDefault(player.getUniqueID(), false);
     }
 
     public static void toggleSpeedForce(EntityPlayer player) {
-        FLASH_SPEED_FORCE.put(player.getUniqueID(), !isSpeedForce(player));
+        FLASH_SPEED_FORCE.put(player.getUniqueID(), !FLASH_SPEED_FORCE.getOrDefault(player.getUniqueID(), false));
+        if (!player.world.isRemote) {
+            syncState(player);
+        }
     }
 
     public static void setCloakTicks(EntityPlayer player, int ticks) {
         CLOAK_TICKS.put(player.getUniqueID(), ticks);
+        if (!player.world.isRemote) {
+            syncState(player);
+        }
     }
 
     public static boolean isCloaked(EntityPlayer player) {
+        if (player.world.isRemote) {
+            return CLIENT_CLOAK_TICKS.getOrDefault(player.getUniqueID(), 0) > 0;
+        }
         return CLOAK_TICKS.getOrDefault(player.getUniqueID(), 0) > 0;
     }
 
@@ -83,6 +129,13 @@ public class HeroAbilityHandler {
 
     public static boolean readySpecial(EntityPlayer player, int cd) {
         return ready(player, COOLDOWN_SPECIAL, cd);
+    }
+
+    @SubscribeEvent
+    public void onLogin(PlayerLoggedInEvent event) {
+        if (!event.player.world.isRemote) {
+            syncState(event.player);
+        }
     }
 
     @SubscribeEvent
@@ -111,10 +164,21 @@ public class HeroAbilityHandler {
             }
         }
 
-        int cloak = CLOAK_TICKS.getOrDefault(player.getUniqueID(), 0);
-        if (cloak > 0) {
-            CLOAK_TICKS.put(player.getUniqueID(), cloak - 1);
-            player.addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 25, 0, true, false));
+        if (player.world.isRemote) {
+            int clientCloak = CLIENT_CLOAK_TICKS.getOrDefault(player.getUniqueID(), 0);
+            if (clientCloak > 0) {
+                CLIENT_CLOAK_TICKS.put(player.getUniqueID(), clientCloak - 1);
+            }
+        } else {
+            int cloak = CLOAK_TICKS.getOrDefault(player.getUniqueID(), 0);
+            if (cloak > 0) {
+                int next = cloak - 1;
+                CLOAK_TICKS.put(player.getUniqueID(), next);
+                player.addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 25, 0, true, false));
+                if (next == 0 || next % 40 == 0) {
+                    syncState(player);
+                }
+            }
         }
 
         if (ironSuit != null) {
@@ -161,15 +225,26 @@ public class HeroAbilityHandler {
     }
 
     private void clearHeroState(EntityPlayer player) {
+        boolean changed = false;
         if (IRON_FLIGHT.getOrDefault(player.getUniqueID(), false)) {
             IRON_FLIGHT.put(player.getUniqueID(), false);
+            changed = true;
             if (!player.capabilities.isCreativeMode) {
                 player.capabilities.allowFlying = false;
                 player.capabilities.isFlying = false;
             }
         }
-        FLASH_SPEED_FORCE.put(player.getUniqueID(), false);
-        CLOAK_TICKS.put(player.getUniqueID(), 0);
+        if (FLASH_SPEED_FORCE.getOrDefault(player.getUniqueID(), false)) {
+            FLASH_SPEED_FORCE.put(player.getUniqueID(), false);
+            changed = true;
+        }
+        if (CLOAK_TICKS.getOrDefault(player.getUniqueID(), 0) > 0) {
+            CLOAK_TICKS.put(player.getUniqueID(), 0);
+            changed = true;
+        }
+        if (changed && !player.world.isRemote) {
+            syncState(player);
+        }
     }
 
     private void tickIronSuit(EntityPlayer player, IronSuitType suit, ItemIronSuitArmor armor, ItemStack chest) {
@@ -423,7 +498,7 @@ public class HeroAbilityHandler {
             event.setCanceled(true);
         }
         if (isCloaked(player) && event.getAmount() > 0.0F) {
-            CLOAK_TICKS.put(player.getUniqueID(), 0);
+            setCloakTicks(player, 0);
             player.removePotionEffect(MobEffects.INVISIBILITY);
         }
         HeroType set = ItemHeroArmor.getWornHeroSet(player);

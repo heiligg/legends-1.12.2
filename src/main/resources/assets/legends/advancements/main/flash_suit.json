@@ -2,23 +2,23 @@
   "parent": "legends:main/hero_root",
   "display": {
     "icon": {
-      "item": "legends:iron_man_chest"
+      "item": "legends:flash_chest"
     },
     "title": {
-      "translate": "advancements.legends.suit_up.title"
+      "translate": "advancements.legends.flash_suit.title"
     },
     "description": {
-      "translate": "advancements.legends.suit_up.description"
+      "translate": "advancements.legends.flash_suit.description"
     },
     "frame": "goal"
   },
   "criteria": {
-    "iron": {
+    "chest": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "legends:iron_man_chest"
+            "item": "legends:flash_chest"
           }
         ]
       }

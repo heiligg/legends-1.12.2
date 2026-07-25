@@ -1,0 +1,27 @@
+{
+  "parent": "legends:main/captain_suit",
+  "display": {
+    "icon": {
+      "item": "legends:vibranium_shield"
+    },
+    "title": {
+      "translate": "advancements.legends.vibranium_shield.title"
+    },
+    "description": {
+      "translate": "advancements.legends.vibranium_shield.description"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "shield": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "legends:vibranium_shield"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,1 +1,14 @@
-{ "parent": "item/generated", "textures": { "layer0": "legends:items/vibranium_shield" } }
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "legends:items/vibranium_shield"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "blocking": 1
+      },
+      "model": "legends:item/vibranium_shield_blocking"
+    }
+  ]
+}

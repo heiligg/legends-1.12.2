@@ -1,24 +1,24 @@
 {
-  "parent": "legends:main/hero_root",
+  "parent": "legends:main/suit_up",
   "display": {
     "icon": {
-      "item": "legends:iron_man_chest"
+      "item": "legends:war_machine_chest"
     },
     "title": {
-      "translate": "advancements.legends.suit_up.title"
+      "translate": "advancements.legends.war_machine.title"
     },
     "description": {
-      "translate": "advancements.legends.suit_up.description"
+      "translate": "advancements.legends.war_machine.description"
     },
     "frame": "goal"
   },
   "criteria": {
-    "iron": {
+    "chest": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "legends:iron_man_chest"
+            "item": "legends:war_machine_chest"
           }
         ]
       }

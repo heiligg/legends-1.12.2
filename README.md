@@ -1,38 +1,45 @@
 # Legends (Minecraft 1.12.2)
 
-Forge adventure mod with legendary gear, world content, bosses, and **full superhero suit kits**.
+Forge adventure mod with legendary gear, world content, bosses, and a **complete Heroes subcategory**.
 
-## Superheroes (v3.6) — Iron Man suit lineup + hero kits
+## Heroes (v4.0) — finished kit
 
-Controls (full matching set required): **G** primary · **F** secondary · **V** special
+Creative tab: **Legends Heroes**  
+Controls (full matching set): **G** primary · **F** secondary · **V** special  
+Energy HUD shows the active hero/suit and ability line. Flight, Speed Force, and cloak sync to the client.
 
-### Iron Man — all suits
+### Iron Man — 9 suits
 
 | Suit | Craft path | Abilities |
 |------|------------|-----------|
-| **Mark I** | Iron + coal | G Flamethrower · F Rocket Jump · V Smoke Screen (no sustained flight) |
-| **Mark III** | Iron + essence (classic) | G Repulsor · F Flight · V Unibeam |
-| **Mark V** | Upgrade Mark III + gold | G Quick Repulsor · F Flight · V Pulse Wave |
-| **Mark VII** | Upgrade Mark III + diamond | G Repulsor · F Flight · V Flare Burst |
-| **Mark XLII** | Upgrade Mark VII + gold blocks | G Repulsor · F Flight · V Auto-Repair (+ passive repair) |
-| **War Machine** | Mark III + iron blocks / TNT | G Missile Barrage · F Hover Flight · V Minigun Spin |
+| **Mark I** | Iron + coal | G Flamethrower · F Rocket Jump · V Smoke Screen |
+| **Mark III** | Iron + essence | G Repulsor · F Flight · V Unibeam |
+| **Mark V** | Mark III + gold | G Quick Repulsor · F Flight · V Pulse Wave |
+| **Mark VII** | Mark III + diamond | G Repulsor · F Flight · V Flare Burst |
+| **Mark XLII** | Mark VII + gold blocks | G Repulsor · F Flight · V Auto-Repair |
+| **War Machine** | Mark III + iron blocks / TNT | G Missile Barrage · F Hover · V Minigun |
 | **Hulkbuster** | War Machine + obsidian | G Power Fist · F Heavy Hover · V Ground Pound |
-| **Mark L** | Mark XLII + diamond blocks / nether star | G Nano-Repulsor · F Flight · V Nanite Surge |
+| **Mark L** | Mark XLII + diamond / nether star | G Nano-Repulsor · F Flight · V Nanite Surge |
 | **Stealth** | Mark V + ender pearls | G Suppressed Shot · F Silent Flight · V Cloak |
 
-Shared: energy HUD, fire immunity, fall immunity, sprint thrusters while flying (where applicable).
-
 ### Spider-Man
-- **G** Web Zip · **F** Web Shot · **V** Spider Leap
+- **G** Web Zip (pulls toward looked blocks) · **F** Web Shot · **V** Spider Leap
 - Sneak glide / wall cling · Spider-Sense
 
 ### Flash
-- **G** Speed Burst · **F** Speed Force · **V** Blink
-- Water running · momentum melee
+- **G** Speed Burst · **F** Speed Force toggle · **V** Blink
+- Water running · momentum melee · mining boost
 
 ### Captain America
-- **G** Shield throw · **F** Bash · **V** Rally
-- Vibranium Shield block / throw
+- **G** Shield throw (needs Vibranium Shield) · **F** Bash · **V** Rally
+- Vibranium Shield: hold RMB to block · sneak+RMB to throw (returns)
+
+### Hero advancements
+Call of Heroes → Suit Up / Spider / Flash / Cap → War Machine, Mark L, Vibranium Shield, Assemble
+
+## Legendary loop
+
+Ore → essence → legendary / ascended gear, altar, totem, elixir, shrines, ruins, Wraith / Knight / Guardian boss.
 
 ## Build
 
@@ -41,4 +48,4 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 ./gradlew build
 ```
 
-Jar: `build/libs/legends-3.6.0.jar`
+Jar: `build/libs/legends-4.0.0.jar`

@@ -1,1 +1,1 @@
-{"type":"minecraft:crafting_shaped","pattern":["I I","IEI","IDI"],"key":{"I":{"item":"minecraft:iron_ingot"},"E":{"item":"legends:legend_essence"},"D":{"item":"minecraft:dye","data":1}},"result":{"item":"legends:captain_america_chest"}}
+{"type": "minecraft:crafting_shaped", "pattern": ["I I", "IEI", "IDI"], "key": {"I": {"item": "minecraft:iron_block"}, "E": {"item": "legends:legend_essence"}, "D": {"item": "minecraft:dye", "data": 1}}, "result": {"item": "legends:captain_america_chest"}}

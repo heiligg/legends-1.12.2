@@ -1,0 +1,34 @@
+{
+  "parent": "legends:main/root",
+  "display": {
+    "icon": { "item": "legends:iron_man_chest" },
+    "title": { "translate": "advancements.legends.hero_root.title" },
+    "description": { "translate": "advancements.legends.hero_root.description" },
+    "frame": "task"
+  },
+  "criteria": {
+    "iron": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "item": "legends:iron_man_chest" }] }
+    },
+    "spider": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "item": "legends:spider_man_chest" }] }
+    },
+    "flash": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "item": "legends:flash_chest" }] }
+    },
+    "cap": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "item": "legends:captain_america_chest" }] }
+    },
+    "mark_i": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "item": "legends:mark_i_chest" }] }
+    }
+  },
+  "requirements": [
+    ["iron", "spider", "flash", "cap", "mark_i"]
+  ]
+}

@@ -2,13 +2,13 @@
   {
     "modid": "legends",
     "name": "Legends",
-    "description": "Legendary gear, shrines, ruins, knights, wraiths, a guardian boss, and ascended endgame for Minecraft 1.12.2.",
-    "version": "3.6.0",
+    "description": "Legendary gear, world content, bosses, and a complete superhero kit subcategory for Minecraft 1.12.2.",
+    "version": "4.0.0",
     "mcversion": "1.12.2",
     "url": "",
     "updateUrl": "",
     "authorList": ["heiligg"],
-    "credits": "Built with Forge 1.12.2 — Iron Man suit lineup",
+    "credits": "Built with Forge 1.12.2 — Heroes complete",
     "logoFile": "",
     "screenshots": [],
     "dependencies": []
