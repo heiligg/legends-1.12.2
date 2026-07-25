@@ -1,0 +1,27 @@
+{
+  "parent": "legends:main/root",
+  "display": {
+    "icon": {
+      "item": "legends:forged_chest"
+    },
+    "title": {
+      "translate": "advancements.legends.forged_set.title"
+    },
+    "description": {
+      "translate": "advancements.legends.forged_set.description"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "chest": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "legends:forged_chest"
+          }
+        ]
+      }
+    }
+  }
+}

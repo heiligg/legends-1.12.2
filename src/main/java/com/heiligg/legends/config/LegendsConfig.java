@@ -6,15 +6,23 @@ import java.io.File;
 
 public class LegendsConfig {
 
-    public static int dashPowerCost = 20;
-    public static int oreVeinsPerChunk = 6;
+    public static int dashPowerCost = 25;
+    public static int oreVeinsPerChunk = 5;
     public static int oreMinY = 8;
     public static int oreMaxY = 48;
     public static boolean fullSetCancelsFallDamage = true;
     public static int wraithSpawnWeight = 6;
-    public static int shrineChance = 18;
-    public static int ruinChance = 28;
-    public static int netherOreVeinsPerChunk = 8;
+    public static int shrineChance = 20;
+    public static int ruinChance = 30;
+    public static int netherOreVeinsPerChunk = 7;
+
+    public static double guardianHealth = 200.0D;
+    public static double guardianDamage = 11.0D;
+    public static int guardianBoltCooldown = 40;
+    public static boolean altarRequiresShrine = true;
+    public static int altarEssenceCost = 1;
+    public static int ascendedRegenAmplifier = 0;
+    public static int ascendedResistAmplifier = 0;
 
     public static void load(File file) {
         Configuration config = new Configuration(file);
@@ -23,7 +31,7 @@ public class LegendsConfig {
             dashPowerCost = config.getInt(
                     "dashPowerCost",
                     "abilities",
-                    20,
+                    25,
                     1,
                     100,
                     "Legend power consumed by dash"
@@ -34,10 +42,26 @@ public class LegendsConfig {
                     true,
                     "Cancel fall damage while wearing a full legendary/ascended set"
             );
+            ascendedRegenAmplifier = config.getInt(
+                    "ascendedRegenAmplifier",
+                    "abilities",
+                    0,
+                    0,
+                    3,
+                    "Regeneration amplifier for full Ascended set (0 = Regen I)"
+            );
+            ascendedResistAmplifier = config.getInt(
+                    "ascendedResistAmplifier",
+                    "abilities",
+                    0,
+                    0,
+                    3,
+                    "Resistance amplifier for full Ascended set (0 = Resist I)"
+            );
             oreVeinsPerChunk = config.getInt(
                     "oreVeinsPerChunk",
                     "world",
-                    6,
+                    5,
                     0,
                     32,
                     "Legend ore veins generated per overworld chunk"
@@ -58,7 +82,7 @@ public class LegendsConfig {
             shrineChance = config.getInt(
                     "shrineChance",
                     "world",
-                    18,
+                    20,
                     1,
                     200,
                     "1-in-N chance per chunk to attempt a Legend Shrine"
@@ -66,7 +90,7 @@ public class LegendsConfig {
             ruinChance = config.getInt(
                     "ruinChance",
                     "world",
-                    28,
+                    30,
                     1,
                     300,
                     "1-in-N chance per chunk to attempt an underground Legend Ruin"
@@ -74,10 +98,48 @@ public class LegendsConfig {
             netherOreVeinsPerChunk = config.getInt(
                     "netherOreVeinsPerChunk",
                     "world",
-                    8,
+                    7,
                     0,
                     32,
                     "Nether Legend Ore veins per nether chunk"
+            );
+            guardianHealth = config.getFloat(
+                    "guardianHealth",
+                    "mobs",
+                    200.0F,
+                    40.0F,
+                    1000.0F,
+                    "Legend Guardian max health"
+            );
+            guardianDamage = config.getFloat(
+                    "guardianDamage",
+                    "mobs",
+                    11.0F,
+                    1.0F,
+                    50.0F,
+                    "Legend Guardian melee damage"
+            );
+            guardianBoltCooldown = config.getInt(
+                    "guardianBoltCooldown",
+                    "mobs",
+                    40,
+                    10,
+                    200,
+                    "Ticks between Guardian arcane bolts (phase 1)"
+            );
+            altarRequiresShrine = config.getBoolean(
+                    "altarRequiresShrine",
+                    "world",
+                    true,
+                    "Guardian summon requires nearby Legend Brick (shrine-style arena)"
+            );
+            altarEssenceCost = config.getInt(
+                    "altarEssenceCost",
+                    "world",
+                    1,
+                    1,
+                    8,
+                    "Legend Essence consumed to awaken the Guardian"
             );
         } finally {
             if (config.hasChanged()) {

@@ -1,5 +1,6 @@
 package com.heiligg.legends.client;
 
+import com.heiligg.legends.LegendsMod;
 import com.heiligg.legends.entity.EntityLegendWraith;
 import net.minecraft.client.model.ModelZombie;
 import net.minecraft.client.renderer.GlStateManager;
@@ -12,7 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderLegendWraith extends RenderLiving<EntityLegendWraith> {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation("textures/entity/zombie/zombie.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(LegendsMod.MODID, "textures/entity/legend_wraith.png");
 
     public RenderLegendWraith(RenderManager manager) {
         super(manager, new ModelZombie(), 0.5F);
@@ -26,8 +27,8 @@ public class RenderLegendWraith extends RenderLiving<EntityLegendWraith> {
     @Override
     protected void preRenderCallback(EntityLegendWraith entitylivingbaseIn, float partialTickTime) {
         GlStateManager.scale(0.95F, 0.95F, 0.95F);
-        GlStateManager.color(0.45F, 0.85F, 1.0F, 0.85F);
         GlStateManager.enableBlend();
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 0.85F);
         GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
     }
 

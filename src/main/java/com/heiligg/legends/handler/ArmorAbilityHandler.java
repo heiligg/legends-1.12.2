@@ -2,6 +2,7 @@ package com.heiligg.legends.handler;
 
 import com.heiligg.legends.config.LegendsConfig;
 import com.heiligg.legends.item.ItemAscendedArmor;
+import com.heiligg.legends.item.ItemForgedArmor;
 import com.heiligg.legends.item.ItemLegendaryArmor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
@@ -14,6 +15,19 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class ArmorAbilityHandler {
+
+    public static boolean isWearingFullForged(EntityPlayer player) {
+        for (EntityEquipmentSlot slot : EntityEquipmentSlot.values()) {
+            if (slot.getSlotType() != EntityEquipmentSlot.Type.ARMOR) {
+                continue;
+            }
+            ItemStack stack = player.getItemStackFromSlot(slot);
+            if (stack.isEmpty() || !(stack.getItem() instanceof ItemForgedArmor)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     public static boolean isWearingFullLegendary(EntityPlayer player) {
         for (EntityEquipmentSlot slot : EntityEquipmentSlot.values()) {
@@ -41,7 +55,7 @@ public class ArmorAbilityHandler {
         return true;
     }
 
-    /** Either full legendary or full ascended grants dash/fall perks. */
+    /** Legendary or Ascended grants dash/fall perks (Forged does not). */
     public static boolean isWearingFullSet(EntityPlayer player) {
         return isWearingFullLegendary(player) || isWearingFullAscended(player);
     }
@@ -85,12 +99,13 @@ public class ArmorAbilityHandler {
         }
 
         if (isWearingFullAscended(player)) {
-            player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 40, 1, true, false));
-            player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 40, 1, true, false));
+            player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 40, LegendsConfig.ascendedRegenAmplifier, true, false));
+            player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 40, LegendsConfig.ascendedResistAmplifier, true, false));
             player.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 40, 0, true, false));
-            player.addPotionEffect(new PotionEffect(MobEffects.ABSORPTION, 60, 1, true, false));
         } else if (isWearingFullLegendary(player)) {
             player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 40, 0, true, false));
+            player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 40, 0, true, false));
+        } else if (isWearingFullForged(player)) {
             player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 40, 0, true, false));
         }
     }
@@ -109,6 +124,8 @@ public class ArmorAbilityHandler {
         EntityPlayer player = (EntityPlayer) event.getEntityLiving();
         if (isWearingFullSet(player)) {
             event.setCanceled(true);
+        } else if (isWearingFullForged(player)) {
+            event.setAmount(event.getAmount() * 0.5F);
         }
     }
 }

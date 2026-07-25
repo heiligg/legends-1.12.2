@@ -20,6 +20,7 @@ public class ItemLegendFragment extends Item {
     @SideOnly(Side.CLIENT)
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(TextFormatting.GRAY + "Combine four fragments into Legend Essence.");
+        tooltip.add(TextFormatting.YELLOW + "Shard from the Well of Legends");
+        tooltip.add(TextFormatting.GRAY + "Craft Forged gear, or combine 4 into Essence.");
     }
 }

@@ -2,10 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "E E",
-    "E E"
+    "D D"
   ],
   "key": {
-    "E": { "item": "legends:legend_essence" }
+    "E": {
+      "item": "legends:legend_essence"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    }
   },
   "result": {
     "item": "legends:legendary_boots"

@@ -6,7 +6,9 @@
     "E E"
   ],
   "key": {
-    "E": { "item": "legends:legend_essence" }
+    "E": {
+      "item": "legends:legend_essence"
+    }
   },
   "result": {
     "item": "legends:legendary_legs"

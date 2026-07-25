@@ -2,12 +2,14 @@ package com.heiligg.legends.network;
 
 import com.heiligg.legends.config.LegendsConfig;
 import com.heiligg.legends.handler.ArmorAbilityHandler;
+import com.heiligg.legends.init.ModSounds;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -51,12 +53,13 @@ public class DashPacket implements IMessage {
                     player.addVelocity(look.x * boost, 0.25D, look.z * boost);
                     player.velocityChanged = true;
                     ArmorAbilityHandler.consumeChestPower(chest, cost);
+                    SoundEvent dash = ModSounds.DASH != null ? ModSounds.DASH : SoundEvents.ENTITY_ENDERDRAGON_FLAP;
                     player.world.playSound(
                             null,
                             player.posX,
                             player.posY,
                             player.posZ,
-                            SoundEvents.ENTITY_ENDERDRAGON_FLAP,
+                            dash,
                             SoundCategory.PLAYERS,
                             0.6F,
                             1.4F

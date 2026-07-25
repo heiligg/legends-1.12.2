@@ -91,11 +91,15 @@ public class ClientProxy extends CommonProxy {
     @SubscribeEvent
     public static void registerModels(ModelRegistryEvent event) {
         Item[] items = new Item[]{
-                LegendsMod.legendEssence, LegendsMod.legendFragment, LegendsMod.ascendedCore,
-                LegendsMod.legendaryBlade, LegendsMod.ascendedBlade, LegendsMod.legendaryBow, LegendsMod.ascendedBow,
-                LegendsMod.legendaryStaff, LegendsMod.ascendedStaff, LegendsMod.legendaryPickaxe, LegendsMod.legendaryAxe,
-                LegendsMod.legendaryShovel, LegendsMod.legendaryShield, LegendsMod.legendAmulet,
+                LegendsMod.legendEssence, LegendsMod.legendFragment, LegendsMod.legendCodex, LegendsMod.ascendedCore,
+                LegendsMod.forgedBlade, LegendsMod.legendaryBlade, LegendsMod.ascendedBlade,
+                LegendsMod.legendaryBow, LegendsMod.ascendedBow,
+                LegendsMod.legendaryStaff, LegendsMod.ascendedStaff,
+                LegendsMod.legendaryPickaxe, LegendsMod.legendaryAxe, LegendsMod.legendaryShovel,
+                LegendsMod.ascendedPickaxe, LegendsMod.ascendedAxe, LegendsMod.ascendedShovel,
+                LegendsMod.legendaryShield, LegendsMod.legendAmulet,
                 LegendsMod.legendTotem, LegendsMod.legendElixir,
+                LegendsMod.forgedHelmet, LegendsMod.forgedChest, LegendsMod.forgedLegs, LegendsMod.forgedBoots,
                 LegendsMod.legendaryHelmet, LegendsMod.legendaryChest, LegendsMod.legendaryLegs, LegendsMod.legendaryBoots,
                 LegendsMod.ascendedHelmet, LegendsMod.ascendedChest, LegendsMod.ascendedLegs, LegendsMod.ascendedBoots,
                 LegendsMod.legendOreItem, LegendsMod.netherLegendOreItem, LegendsMod.legendBrickItem, LegendsMod.legendAltarItem

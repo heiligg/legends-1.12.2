@@ -1,45 +1,44 @@
 # Legends (Minecraft 1.12.2)
 
-Forge adventure mod with legendary gear, world content, bosses, and a **complete Heroes subcategory**.
+Forge adventure mod built around the **Well of Legends** — ore and essence from fallen heroes, shrine trials, Ascended gear, and a full Heroes subcategory.
 
-## Heroes (v4.0) — finished kit
+**Version:** 4.1.0
 
-Creative tab: **Legends Heroes**  
-Controls (full matching set): **G** primary · **F** secondary · **V** special  
-Energy HUD shows the active hero/suit and ability line. Flight, Speed Force, and cloak sync to the client.
+## Progression
 
-### Iron Man — 9 suits
+```
+Wellstone Ore → Fragments → Forged kit
+         ↓
+    Legend Essence → Legendary gear / Hero starter suits
+         ↓
+   Legend Shrine (Codex + Altar) → Guardian trial (3 phases)
+         ↓
+   Ascended Core → Ascended weapons, tools, armor / late Iron suits
+```
 
-| Suit | Craft path | Abilities |
-|------|------------|-----------|
-| **Mark I** | Iron + coal | G Flamethrower · F Rocket Jump · V Smoke Screen |
-| **Mark III** | Iron + essence | G Repulsor · F Flight · V Unibeam |
-| **Mark V** | Mark III + gold | G Quick Repulsor · F Flight · V Pulse Wave |
-| **Mark VII** | Mark III + diamond | G Repulsor · F Flight · V Flare Burst |
-| **Mark XLII** | Mark VII + gold blocks | G Repulsor · F Flight · V Auto-Repair |
-| **War Machine** | Mark III + iron blocks / TNT | G Missile Barrage · F Hover · V Minigun |
-| **Hulkbuster** | War Machine + obsidian | G Power Fist · F Heavy Hover · V Ground Pound |
-| **Mark L** | Mark XLII + diamond / nether star | G Nano-Repulsor · F Flight · V Nanite Surge |
-| **Stealth** | Mark V + ender pearls | G Suppressed Shot · F Silent Flight · V Cloak |
+Read the **Legend Codex** (shrine chest or book + Essence) for the in-game path.
 
-### Spider-Man
-- **G** Web Zip (pulls toward looked blocks) · **F** Web Shot · **V** Spider Leap
-- Sneak glide / wall cling · Spider-Sense
+## Fantasy loop
 
-### Flash
-- **G** Speed Burst · **F** Speed Force toggle · **V** Blink
-- Water running · momentum melee · mining boost
+| Tier | Content |
+|------|---------|
+| **Forged** | Fragment + iron mid-tier armor/blade — resistance, half fall damage |
+| **Legendary** | Essence + diamond gear — regen/resist set, dash (R), shockwave blade, staff bolts |
+| **Ascended** | Core upgrades — stronger tools/weapons/armor (tuned set bonuses) |
 
-### Captain America
-- **G** Shield throw (needs Vibranium Shield) · **F** Bash · **V** Rally
-- Vibranium Shield: hold RMB to block · sneak+RMB to throw (returns)
+World: Wellstone ore (overworld + nether), **Legend Shrines** (landmark + altar + loot), underground **Legend Ruins** (knights), Wraiths in biomes, **Legend Guardian** boss (phased fight; altar needs Shrine Brick foundation).
 
-### Hero advancements
-Call of Heroes → Suit Up / Spider / Flash / Cap → War Machine, Mark L, Vibranium Shield, Assemble
+## Heroes subcategory
 
-## Legendary loop
+Creative tab **Legends Heroes** · **G / F / V** abilities · energy HUD
 
-Ore → essence → legendary / ascended gear, altar, totem, elixir, shrines, ruins, Wraith / Knight / Guardian boss.
+- Iron Man — 9 suits · Spider-Man · Flash · Captain America + Vibranium Shield
+
+See prior notes / advancements under Call of Heroes.
+
+## Config (`legends.cfg`)
+
+Dash cost, ore/shrine/ruin rates, Guardian HP/damage/bolt cooldown, altar shrine requirement, Ascended potion amplifiers.
 
 ## Build
 
@@ -48,4 +47,6 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 ./gradlew build
 ```
 
-Jar: `build/libs/legends-4.0.0.jar`
+Jar: `build/libs/legends-4.1.0.jar`
+
+Playtest checklist: `docs/PLAYTEST.md`

@@ -1,0 +1,27 @@
+{
+  "parent": "legends:main/read_codex",
+  "display": {
+    "icon": {
+      "item": "legends:legend_brick"
+    },
+    "title": {
+      "translate": "advancements.legends.shrine_brick.title"
+    },
+    "description": {
+      "translate": "advancements.legends.shrine_brick.description"
+    },
+    "frame": "goal"
+  },
+  "criteria": {
+    "brick": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "legends:legend_brick"
+          }
+        ]
+      }
+    }
+  }
+}

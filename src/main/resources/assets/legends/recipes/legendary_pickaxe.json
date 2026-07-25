@@ -6,8 +6,14 @@
     " S "
   ],
   "key": {
-    "E": { "item": "legends:legend_essence" },
-    "S": { "item": "minecraft:stick" }
+    "E": {
+      "item": "legends:legend_essence"
+    },
+    "S": {
+      "item": "minecraft:diamond"
+    }
   },
-  "result": { "item": "legends:legendary_pickaxe" }
+  "result": {
+    "item": "legends:legendary_pickaxe"
+  }
 }

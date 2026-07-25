@@ -1,0 +1,27 @@
+{
+  "parent": "legends:main/root",
+  "display": {
+    "icon": {
+      "item": "legends:legend_codex"
+    },
+    "title": {
+      "translate": "advancements.legends.read_codex.title"
+    },
+    "description": {
+      "translate": "advancements.legends.read_codex.description"
+    },
+    "frame": "task"
+  },
+  "criteria": {
+    "codex": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "legends:legend_codex"
+          }
+        ]
+      }
+    }
+  }
+}

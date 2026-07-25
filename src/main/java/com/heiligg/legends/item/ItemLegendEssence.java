@@ -19,8 +19,9 @@ public class ItemLegendEssence extends Item {
     @SideOnly(Side.CLIENT)
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        tooltip.add("Condensed power of fallen heroes.");
-        tooltip.add("Used to forge legendary gear.");
+        tooltip.add("Condensed power from the Well of Legends.");
+        tooltip.add("Forge Legendary gear, awaken shrine Guardians,");
+        tooltip.add("and power hero relic suits.");
     }
 
     @SideOnly(Side.CLIENT)

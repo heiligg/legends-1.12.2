@@ -3,11 +3,15 @@
   "pattern": [
     " E ",
     " E ",
-    " S "
+    " D "
   ],
   "key": {
-    "E": { "item": "legends:legend_essence" },
-    "S": { "item": "minecraft:stick" }
+    "E": {
+      "item": "legends:legend_essence"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    }
   },
   "result": {
     "item": "legends:legendary_blade"
