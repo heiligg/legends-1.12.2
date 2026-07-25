@@ -11,6 +11,8 @@ public class LegendsConfig {
     public static int oreMinY = 8;
     public static int oreMaxY = 48;
     public static boolean fullSetCancelsFallDamage = true;
+    public static int wraithSpawnWeight = 6;
+    public static int shrineChance = 18;
 
     public static void load(File file) {
         Configuration config = new Configuration(file);
@@ -28,7 +30,7 @@ public class LegendsConfig {
                     "fullSetCancelsFallDamage",
                     "abilities",
                     true,
-                    "Cancel fall damage while wearing the full legendary set"
+                    "Cancel fall damage while wearing a full legendary/ascended set"
             );
             oreVeinsPerChunk = config.getInt(
                     "oreVeinsPerChunk",
@@ -43,6 +45,22 @@ public class LegendsConfig {
             if (oreMaxY <= oreMinY) {
                 oreMaxY = oreMinY + 1;
             }
+            wraithSpawnWeight = config.getInt(
+                    "wraithSpawnWeight",
+                    "mobs",
+                    6,
+                    0,
+                    100,
+                    "Spawn weight for Legend Wraiths in monster biomes"
+            );
+            shrineChance = config.getInt(
+                    "shrineChance",
+                    "world",
+                    18,
+                    1,
+                    200,
+                    "1-in-N chance per chunk to attempt a Legend Shrine"
+            );
         } finally {
             if (config.hasChanged()) {
                 config.save();

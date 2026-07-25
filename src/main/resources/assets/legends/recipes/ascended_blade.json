@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "legends:legendary_blade" },
+    { "item": "legends:ascended_core" },
+    { "item": "minecraft:nether_star" }
+  ],
+  "result": { "item": "legends:ascended_blade" }
+}

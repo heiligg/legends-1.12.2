@@ -13,6 +13,8 @@ import java.util.Random;
 
 public class LegendsWorldGen implements IWorldGenerator {
 
+    private final WorldGenLegendShrine shrineGen = new WorldGenLegendShrine();
+
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
         if (world.provider.getDimension() != 0 || LegendsMod.legendOre == null) {
@@ -26,6 +28,12 @@ public class LegendsWorldGen implements IWorldGenerator {
             int y = LegendsConfig.oreMinY + random.nextInt(range);
             int z = chunkZ * 16 + random.nextInt(16);
             generator.generate(world, random, new BlockPos(x, y, z));
+        }
+
+        if (random.nextInt(Math.max(1, LegendsConfig.shrineChance)) == 0) {
+            int x = chunkX * 16 + 8 + random.nextInt(8);
+            int z = chunkZ * 16 + 8 + random.nextInt(8);
+            shrineGen.generate(world, random, new BlockPos(x, 0, z));
         }
     }
 }

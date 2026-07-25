@@ -1,0 +1,15 @@
+{
+  "parent": "legends:main/challenge_guardian",
+  "display": {
+    "icon": { "item": "legends:ascended_blade" },
+    "title": { "translate": "advancements.legends.ascend.title" },
+    "description": { "translate": "advancements.legends.ascend.description" },
+    "frame": "challenge"
+  },
+  "criteria": {
+    "got_blade": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": { "items": [{ "item": "legends:ascended_blade" }] }
+    }
+  }
+}

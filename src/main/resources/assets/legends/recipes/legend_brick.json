@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SS",
+    "SE"
+  ],
+  "key": {
+    "S": { "item": "minecraft:stonebrick", "data": 0 },
+    "E": { "item": "legends:legend_fragment" }
+  },
+  "result": { "item": "legends:legend_brick", "count": 4 }
+}

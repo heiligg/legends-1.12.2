@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    { "item": "legends:legendary_helmet" },
+    { "item": "legends:ascended_core" },
+    { "item": "legends:legend_essence" }
+  ],
+  "result": { "item": "legends:ascended_helmet" }
+}

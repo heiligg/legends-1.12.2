@@ -1,5 +1,6 @@
 package com.heiligg.legends.network;
 
+import com.heiligg.legends.item.ItemAscendedBlade;
 import com.heiligg.legends.item.ItemLegendaryBlade;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.EntityLivingBase;
@@ -30,6 +31,10 @@ public class ShockwavePacket implements IMessage {
     public void toBytes(ByteBuf buf) {
     }
 
+    private static boolean isShockwaveBlade(ItemStack stack) {
+        return !stack.isEmpty() && (stack.getItem() instanceof ItemLegendaryBlade || stack.getItem() instanceof ItemAscendedBlade);
+    }
+
     public static class Handler implements IMessageHandler<ShockwavePacket, IMessage> {
 
         @Override
@@ -39,15 +44,17 @@ public class ShockwavePacket implements IMessage {
                 @Override
                 public void run() {
                     ItemStack held = player.getHeldItemMainhand();
-                    if (held.isEmpty() || !(held.getItem() instanceof ItemLegendaryBlade)) {
+                    if (!isShockwaveBlade(held)) {
                         held = player.getHeldItemOffhand();
                     }
-                    if (held.isEmpty() || !(held.getItem() instanceof ItemLegendaryBlade)) {
+                    if (!isShockwaveBlade(held)) {
                         return;
                     }
 
+                    boolean ascended = held.getItem() instanceof ItemAscendedBlade;
                     WorldServer world = player.getServerWorld();
-                    double radius = 4.0D;
+                    double radius = ascended ? 5.5D : 4.0D;
+                    float damage = ascended ? 9.0F : 6.0F;
                     AxisAlignedBB box = player.getEntityBoundingBox().grow(radius, 1.5D, radius);
                     List<EntityLivingBase> targets = world.getEntitiesWithinAABB(
                             EntityLivingBase.class,
@@ -56,12 +63,13 @@ public class ShockwavePacket implements IMessage {
                     );
 
                     for (EntityLivingBase target : targets) {
-                        target.attackEntityFrom(DamageSource.causePlayerDamage(player), 6.0F);
+                        target.attackEntityFrom(DamageSource.causePlayerDamage(player), damage);
                         double dx = target.posX - player.posX;
                         double dz = target.posZ - player.posZ;
                         double dist = Math.sqrt(dx * dx + dz * dz);
                         if (dist > 0.001D) {
-                            target.addVelocity(dx / dist * 1.2D, 0.35D, dz / dist * 1.2D);
+                            double knock = ascended ? 1.5D : 1.2D;
+                            target.addVelocity(dx / dist * knock, 0.35D, dz / dist * knock);
                             target.velocityChanged = true;
                         }
                     }
@@ -71,10 +79,10 @@ public class ShockwavePacket implements IMessage {
                             player.posX,
                             player.posY + 1.0D,
                             player.posZ,
-                            40,
-                            1.5D,
+                            ascended ? 60 : 40,
+                            radius * 0.35D,
                             0.4D,
-                            1.5D,
+                            radius * 0.35D,
                             0.08D
                     );
                     world.playSound(
@@ -85,7 +93,7 @@ public class ShockwavePacket implements IMessage {
                             SoundEvents.ENTITY_GENERIC_EXPLODE,
                             SoundCategory.PLAYERS,
                             0.5F,
-                            1.6F
+                            ascended ? 1.3F : 1.6F
                     );
 
                     held.damageItem(1, player);

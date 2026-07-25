@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " B ",
+    "BEB",
+    "BBB"
+  ],
+  "key": {
+    "B": { "item": "legends:legend_brick" },
+    "E": { "item": "legends:legend_essence" }
+  },
+  "result": { "item": "legends:legend_altar" }
+}

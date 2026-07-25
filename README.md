@@ -1,19 +1,24 @@
 # Legends (Minecraft 1.12.2)
 
-Forge mod that adds legendary armor, weapons, trinkets, ore, and hero abilities.
+Forge adventure/combat mod with legendary gear, shrines, hostile wraiths, a guardian boss, and an ascended endgame tier.
+
+## Progression
+
+1. Mine **Legend Ore** or loot fragments from **Legend Wraiths** / shrines
+2. Craft **Legend Essence** and forge legendary gear
+3. Find a **Legend Shrine** (or craft an altar) and offer essence to summon the **Legend Guardian**
+4. Defeat the guardian for an **Ascended Core**, then upgrade gear to the ascended tier
 
 ## Features
 
-- **Legend Ore / Fragments** – overworld ore that drops fragments; craft 4 into essence
-- **Legendary Armor** – full set grants regeneration, resistance, and a dash ability
-- **Legendary Blade** – high-damage sword with a shockwave special
-- **Legendary Bow** – fires a triple volley with bonus damage
-- **Legendary Staff** – launches arcane bolt projectiles
-- **Legendary Pickaxe / Axe** – faster mining and sneak multi-log clearing
-- **Legend Amulet** – hotbar/offhand trinket for Night Vision and Speed
-- **Legend Essence** – crafting material (also found in dungeon-like loot chests)
-- Power HUD while wearing legendary armor
-- Advancements for discovering and forging legendary gear
+- Legend Ore, Fragments, Essence, Bricks, Altar
+- Legendary armor/weapons/tools + amulet
+- Ascended armor + blade (guardian drops)
+- Legend Wraith night mobs
+- Legend Guardian boss (boss bar, ranged bolts)
+- Shrine worldgen with chest loot
+- Dash ability, shockwave, staff bolts, power HUD
+- Advancements and `config/legends.cfg`
 
 ## Requirements
 
@@ -28,24 +33,13 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 ./gradlew build
 ```
 
-The mod jar is written to `build/libs/legends-1.3.0.jar`.
+Jar: `build/libs/legends-2.0.0.jar`
 
 ## Controls
 
 | Key | Ability | Requirement |
 |-----|---------|-------------|
-| R | Dash | Full legendary armor + power |
-| Right-click (blade) | Shockwave | Legendary blade in hand |
-| Right-click (staff) | Arcane Bolt | Legendary staff in hand |
-
-## Config
-
-On first run Forge writes `config/legends.cfg` with:
-
-- dash power cost
-- fall-damage cancel for the full armor set
-- legend ore vein count / Y range
-
-## Creative Tab
-
-Look under **Legends** in the creative inventory.
+| R | Dash | Full legendary or ascended armor |
+| Right-click blade | Shockwave | Legendary/Ascended blade |
+| Right-click staff | Arcane Bolt | Legendary staff |
+| Use altar + essence | Summon Guardian | Legend Altar |

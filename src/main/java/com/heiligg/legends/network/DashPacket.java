@@ -2,7 +2,6 @@ package com.heiligg.legends.network;
 
 import com.heiligg.legends.config.LegendsConfig;
 import com.heiligg.legends.handler.ArmorAbilityHandler;
-import com.heiligg.legends.item.ItemLegendaryArmor;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
@@ -41,21 +40,17 @@ public class DashPacket implements IMessage {
                     }
 
                     ItemStack chest = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-                    if (!(chest.getItem() instanceof ItemLegendaryArmor)) {
-                        return;
-                    }
-
-                    ItemLegendaryArmor armor = (ItemLegendaryArmor) chest.getItem();
                     int cost = LegendsConfig.dashPowerCost;
-                    if (armor.getPower(chest) < cost) {
+                    if (ArmorAbilityHandler.getChestPower(chest) < cost) {
                         player.sendMessage(new TextComponentString("Not enough legend power to dash!"));
                         return;
                     }
 
                     Vec3d look = player.getLookVec();
-                    player.addVelocity(look.x * 1.8D, 0.25D, look.z * 1.8D);
+                    double boost = ArmorAbilityHandler.isWearingFullAscended(player) ? 2.2D : 1.8D;
+                    player.addVelocity(look.x * boost, 0.25D, look.z * boost);
                     player.velocityChanged = true;
-                    armor.consumePower(chest, cost);
+                    ArmorAbilityHandler.consumeChestPower(chest, cost);
                     player.world.playSound(
                             null,
                             player.posX,

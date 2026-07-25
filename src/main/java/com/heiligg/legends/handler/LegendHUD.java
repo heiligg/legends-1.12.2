@@ -1,5 +1,6 @@
 package com.heiligg.legends.handler;
 
+import com.heiligg.legends.item.ItemAscendedArmor;
 import com.heiligg.legends.item.ItemLegendaryArmor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -26,6 +27,7 @@ public class LegendHUD {
         int totalPower = 0;
         int maxPower = 0;
         int pieces = 0;
+        boolean ascended = false;
 
         for (EntityEquipmentSlot slot : EntityEquipmentSlot.values()) {
             if (slot.getSlotType() != EntityEquipmentSlot.Type.ARMOR) {
@@ -37,6 +39,12 @@ public class LegendHUD {
                 totalPower += armor.getPower(stack);
                 maxPower += ItemLegendaryArmor.MAX_POWER;
                 pieces++;
+            } else if (stack.getItem() instanceof ItemAscendedArmor) {
+                ItemAscendedArmor armor = (ItemAscendedArmor) stack.getItem();
+                totalPower += armor.getPower(stack);
+                maxPower += ItemAscendedArmor.MAX_POWER;
+                pieces++;
+                ascended = true;
             }
         }
 
@@ -53,9 +61,13 @@ public class LegendHUD {
         float percent = maxPower == 0 ? 0F : (float) totalPower / (float) maxPower;
         int filled = (int) (barWidth * percent);
 
+        Color fill = ascended ? new Color(180, 80, 255, 220) : new Color(40, 180, 220, 220);
+        int textColor = ascended ? 0xE0A0FF : 0x7FDFFF;
+        String label = (ascended ? "Ascended Power: " : "Legend Power: ") + totalPower + "/" + maxPower;
+
         mc.ingameGUI.drawRect(x - 1, y - 1, x + barWidth + 1, y + barHeight + 1, new Color(0, 0, 0, 160).getRGB());
         mc.ingameGUI.drawRect(x, y, x + barWidth, y + barHeight, new Color(20, 20, 40, 180).getRGB());
-        mc.ingameGUI.drawRect(x, y, x + filled, y + barHeight, new Color(40, 180, 220, 220).getRGB());
-        mc.fontRenderer.drawStringWithShadow("Legend Power: " + totalPower + "/" + maxPower, x, y - 11, 0x7FDFFF);
+        mc.ingameGUI.drawRect(x, y, x + filled, y + barHeight, fill.getRGB());
+        mc.fontRenderer.drawStringWithShadow(label, x, y - 11, textColor);
     }
 }

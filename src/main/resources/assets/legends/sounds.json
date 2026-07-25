@@ -1,0 +1,14 @@
+{
+  "guardian.awaken": {
+    "category": "hostile",
+    "sounds": [
+      { "name": "entity.wither.spawn", "type": "event" }
+    ]
+  },
+  "wraith.ambient": {
+    "category": "hostile",
+    "sounds": [
+      { "name": "entity.vex.ambient", "type": "event" }
+    ]
+  }
+}
