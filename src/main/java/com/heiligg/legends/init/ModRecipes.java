@@ -13,5 +13,8 @@ public final class ModRecipes {
         if (LegendsMod.legendOreItem != null && LegendsMod.legendFragment != null) {
             GameRegistry.addSmelting(LegendsMod.legendOreItem, new ItemStack(LegendsMod.legendFragment, 2), 0.7F);
         }
+        if (LegendsMod.netherLegendOreItem != null && LegendsMod.legendFragment != null) {
+            GameRegistry.addSmelting(LegendsMod.netherLegendOreItem, new ItemStack(LegendsMod.legendFragment, 3), 0.9F);
+        }
     }
 }

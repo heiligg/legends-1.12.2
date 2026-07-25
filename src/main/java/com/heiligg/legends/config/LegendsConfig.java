@@ -14,6 +14,7 @@ public class LegendsConfig {
     public static int wraithSpawnWeight = 6;
     public static int shrineChance = 18;
     public static int ruinChance = 28;
+    public static int netherOreVeinsPerChunk = 8;
 
     public static void load(File file) {
         Configuration config = new Configuration(file);
@@ -69,6 +70,14 @@ public class LegendsConfig {
                     1,
                     300,
                     "1-in-N chance per chunk to attempt an underground Legend Ruin"
+            );
+            netherOreVeinsPerChunk = config.getInt(
+                    "netherOreVeinsPerChunk",
+                    "world",
+                    8,
+                    0,
+                    32,
+                    "Nether Legend Ore veins per nether chunk"
             );
         } finally {
             if (config.hasChanged()) {

@@ -55,3 +55,5 @@ advancements.legends.cheat_death.title=Cheat Death
 advancements.legends.cheat_death.description=Obtain a Legend Totem
 item.legends.ascended_bow.name=Ascended Bow
 item.legends.ascended_staff.name=Ascended Staff
+tile.legends.nether_legend_ore.name=Nether Legend Ore
+enchantment.legends.legend_strike=Legend Strike

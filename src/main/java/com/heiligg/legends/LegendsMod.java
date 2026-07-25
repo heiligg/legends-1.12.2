@@ -3,7 +3,9 @@ package com.heiligg.legends;
 import com.heiligg.legends.block.BlockLegendAltar;
 import com.heiligg.legends.block.BlockLegendBrick;
 import com.heiligg.legends.block.BlockLegendOre;
+import com.heiligg.legends.block.BlockNetherLegendOre;
 import com.heiligg.legends.config.LegendsConfig;
+import com.heiligg.legends.enchantment.EnchantmentLegendStrike;
 import com.heiligg.legends.entity.EntityArcaneBolt;
 import com.heiligg.legends.entity.EntityLegendGuardian;
 import com.heiligg.legends.entity.EntityLegendKnight;
@@ -37,6 +39,7 @@ import com.heiligg.legends.network.StaffBoltPacket;
 import com.heiligg.legends.world.LegendsWorldGen;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
@@ -67,14 +70,16 @@ public class LegendsMod {
 
     public static final String MODID = "legends";
     public static final String NAME = "Legends";
-    public static final String VERSION = "2.2.0";
+    public static final String VERSION = "2.3.0";
 
     public static Logger logger;
     public static SimpleNetworkWrapper network;
 
     public static Block legendOre;
+    public static Block netherLegendOre;
     public static Block legendBrick;
     public static Block legendAltar;
+    public static Enchantment legendStrike;
 
     public static Item legendEssence;
     public static Item legendFragment;
@@ -101,6 +106,7 @@ public class LegendsMod {
     public static Item ascendedLegs;
     public static Item ascendedBoots;
     public static Item legendOreItem;
+    public static Item netherLegendOreItem;
     public static Item legendBrickItem;
     public static Item legendAltarItem;
 
@@ -187,9 +193,16 @@ public class LegendsMod {
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
         legendOre = new BlockLegendOre().setRegistryName(MODID, "legend_ore").setUnlocalizedName(MODID + ".legend_ore");
+        netherLegendOre = new BlockNetherLegendOre().setRegistryName(MODID, "nether_legend_ore").setUnlocalizedName(MODID + ".nether_legend_ore");
         legendBrick = new BlockLegendBrick().setRegistryName(MODID, "legend_brick").setUnlocalizedName(MODID + ".legend_brick");
         legendAltar = new BlockLegendAltar().setRegistryName(MODID, "legend_altar").setUnlocalizedName(MODID + ".legend_altar");
-        event.getRegistry().registerAll(legendOre, legendBrick, legendAltar);
+        event.getRegistry().registerAll(legendOre, netherLegendOre, legendBrick, legendAltar);
+    }
+
+    @SubscribeEvent
+    public static void registerEnchantments(RegistryEvent.Register<Enchantment> event) {
+        legendStrike = new EnchantmentLegendStrike();
+        event.getRegistry().register(legendStrike);
     }
 
     @SubscribeEvent
@@ -222,6 +235,7 @@ public class LegendsMod {
         ascendedBoots = item(new ItemAscendedArmor(ASCENDED_ARMOR, 1, EntityEquipmentSlot.FEET), "ascended_boots");
 
         legendOreItem = new ItemBlock(legendOre).setRegistryName(legendOre.getRegistryName()).setCreativeTab(TAB);
+        netherLegendOreItem = new ItemBlock(netherLegendOre).setRegistryName(netherLegendOre.getRegistryName()).setCreativeTab(TAB);
         legendBrickItem = new ItemBlock(legendBrick).setRegistryName(legendBrick.getRegistryName()).setCreativeTab(TAB);
         legendAltarItem = new ItemBlock(legendAltar).setRegistryName(legendAltar.getRegistryName()).setCreativeTab(TAB);
 
@@ -232,7 +246,7 @@ public class LegendsMod {
                 legendAmulet, legendTotem, legendElixir,
                 legendaryHelmet, legendaryChest, legendaryLegs, legendaryBoots,
                 ascendedHelmet, ascendedChest, ascendedLegs, ascendedBoots,
-                legendOreItem, legendBrickItem, legendAltarItem
+                legendOreItem, netherLegendOreItem, legendBrickItem, legendAltarItem
         );
     }
 

@@ -70,7 +70,7 @@ public class ClientProxy extends CommonProxy {
                 LegendsMod.legendTotem, LegendsMod.legendElixir,
                 LegendsMod.legendaryHelmet, LegendsMod.legendaryChest, LegendsMod.legendaryLegs, LegendsMod.legendaryBoots,
                 LegendsMod.ascendedHelmet, LegendsMod.ascendedChest, LegendsMod.ascendedLegs, LegendsMod.ascendedBoots,
-                LegendsMod.legendOreItem, LegendsMod.legendBrickItem, LegendsMod.legendAltarItem
+                LegendsMod.legendOreItem, LegendsMod.netherLegendOreItem, LegendsMod.legendBrickItem, LegendsMod.legendAltarItem
         };
         for (Item item : items) {
             registerItemModel(item);
