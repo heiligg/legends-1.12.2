@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " E ",
+    " B ",
+    " S "
+  ],
+  "key": {
+    "E": { "item": "legends:legend_essence" },
+    "B": { "item": "minecraft:blaze_rod" },
+    "S": { "item": "minecraft:stick" }
+  },
+  "result": {
+    "item": "legends:legendary_staff"
+  }
+}

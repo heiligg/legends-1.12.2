@@ -1,13 +1,16 @@
 itemGroup.legends=Legends
 
 item.legends.legend_essence.name=Legend Essence
+item.legends.legend_fragment.name=Legend Fragment
 item.legends.legendary_blade.name=Legendary Blade
 item.legends.legendary_bow.name=Legendary Bow
+item.legends.legendary_staff.name=Legendary Staff
 item.legends.legend_amulet.name=Legend Amulet
 item.legends.legendary_helmet.name=Legendary Helmet
 item.legends.legendary_chest.name=Legendary Chestplate
 item.legends.legendary_legs.name=Legendary Leggings
 item.legends.legendary_boots.name=Legendary Boots
+tile.legends.legend_ore.name=Legend Ore
 
 key.categories.legends=Legends
 key.legends.dash=Dash

@@ -1,6 +1,7 @@
 package com.heiligg.legends.handler;
 
 import com.heiligg.legends.LegendsMod;
+import com.heiligg.legends.config.LegendsConfig;
 import com.heiligg.legends.item.ItemLegendaryArmor;
 import com.heiligg.legends.network.DashPacket;
 import net.minecraft.client.Minecraft;
@@ -38,7 +39,7 @@ public class KeyInputHandler {
             ItemStack chest = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
             if (chest.getItem() instanceof ItemLegendaryArmor) {
                 ItemLegendaryArmor armor = (ItemLegendaryArmor) chest.getItem();
-                if (armor.getPower(chest) >= 20) {
+                if (armor.getPower(chest) >= LegendsConfig.dashPowerCost) {
                     LegendsMod.network.sendToServer(new DashPacket());
                 }
             }

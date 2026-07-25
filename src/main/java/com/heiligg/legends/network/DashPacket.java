@@ -1,5 +1,6 @@
 package com.heiligg.legends.network;
 
+import com.heiligg.legends.config.LegendsConfig;
 import com.heiligg.legends.handler.ArmorAbilityHandler;
 import com.heiligg.legends.item.ItemLegendaryArmor;
 import io.netty.buffer.ByteBuf;
@@ -45,7 +46,8 @@ public class DashPacket implements IMessage {
                     }
 
                     ItemLegendaryArmor armor = (ItemLegendaryArmor) chest.getItem();
-                    if (armor.getPower(chest) < 20) {
+                    int cost = LegendsConfig.dashPowerCost;
+                    if (armor.getPower(chest) < cost) {
                         player.sendMessage(new TextComponentString("Not enough legend power to dash!"));
                         return;
                     }
@@ -53,7 +55,7 @@ public class DashPacket implements IMessage {
                     Vec3d look = player.getLookVec();
                     player.addVelocity(look.x * 1.8D, 0.25D, look.z * 1.8D);
                     player.velocityChanged = true;
-                    armor.consumePower(chest, 20);
+                    armor.consumePower(chest, cost);
                     player.world.playSound(
                             null,
                             player.posX,
