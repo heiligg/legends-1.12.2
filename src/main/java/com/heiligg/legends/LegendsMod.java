@@ -1,9 +1,12 @@
 package com.heiligg.legends;
 
 import com.heiligg.legends.handler.ArmorAbilityHandler;
+import com.heiligg.legends.handler.LootHandler;
+import com.heiligg.legends.item.ItemLegendAmulet;
 import com.heiligg.legends.item.ItemLegendEssence;
 import com.heiligg.legends.item.ItemLegendaryArmor;
 import com.heiligg.legends.item.ItemLegendaryBlade;
+import com.heiligg.legends.item.ItemLegendaryBow;
 import com.heiligg.legends.network.DashPacket;
 import com.heiligg.legends.network.ShockwavePacket;
 import net.minecraft.creativetab.CreativeTabs;
@@ -30,13 +33,15 @@ public class LegendsMod {
 
     public static final String MODID = "legends";
     public static final String NAME = "Legends";
-    public static final String VERSION = "1.0.0";
+    public static final String VERSION = "1.1.0";
 
     public static Logger logger;
     public static SimpleNetworkWrapper network;
 
     public static Item legendEssence;
     public static Item legendaryBlade;
+    public static Item legendaryBow;
+    public static Item legendAmulet;
     public static Item legendaryHelmet;
     public static Item legendaryChest;
     public static Item legendaryLegs;
@@ -84,6 +89,7 @@ public class LegendsMod {
         network.registerMessage(ShockwavePacket.Handler.class, ShockwavePacket.class, nextPacketId(), Side.SERVER);
 
         MinecraftForge.EVENT_BUS.register(new ArmorAbilityHandler());
+        MinecraftForge.EVENT_BUS.register(new LootHandler());
         proxy.preInit();
         logger.info("Legends {} pre-initialized", VERSION);
     }
@@ -104,6 +110,16 @@ public class LegendsMod {
         legendaryBlade = new ItemLegendaryBlade(LEGENDARY_TOOL)
                 .setRegistryName(MODID, "legendary_blade")
                 .setUnlocalizedName(MODID + ".legendary_blade")
+                .setCreativeTab(TAB);
+
+        legendaryBow = new ItemLegendaryBow()
+                .setRegistryName(MODID, "legendary_bow")
+                .setUnlocalizedName(MODID + ".legendary_bow")
+                .setCreativeTab(TAB);
+
+        legendAmulet = new ItemLegendAmulet()
+                .setRegistryName(MODID, "legend_amulet")
+                .setUnlocalizedName(MODID + ".legend_amulet")
                 .setCreativeTab(TAB);
 
         legendaryHelmet = new ItemLegendaryArmor(LEGENDARY_ARMOR, 1, EntityEquipmentSlot.HEAD)
@@ -129,6 +145,8 @@ public class LegendsMod {
         event.getRegistry().registerAll(
                 legendEssence,
                 legendaryBlade,
+                legendaryBow,
+                legendAmulet,
                 legendaryHelmet,
                 legendaryChest,
                 legendaryLegs,

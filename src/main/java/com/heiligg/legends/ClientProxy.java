@@ -25,6 +25,8 @@ public class ClientProxy extends CommonProxy {
     public static void registerModels(ModelRegistryEvent event) {
         registerItemModel(LegendsMod.legendEssence);
         registerItemModel(LegendsMod.legendaryBlade);
+        registerItemModel(LegendsMod.legendaryBow);
+        registerItemModel(LegendsMod.legendAmulet);
         registerItemModel(LegendsMod.legendaryHelmet);
         registerItemModel(LegendsMod.legendaryChest);
         registerItemModel(LegendsMod.legendaryLegs);

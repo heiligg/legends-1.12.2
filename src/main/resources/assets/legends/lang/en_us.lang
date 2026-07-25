@@ -2,6 +2,8 @@ itemGroup.legends=Legends
 
 item.legends.legend_essence.name=Legend Essence
 item.legends.legendary_blade.name=Legendary Blade
+item.legends.legendary_bow.name=Legendary Bow
+item.legends.legend_amulet.name=Legend Amulet
 item.legends.legendary_helmet.name=Legendary Helmet
 item.legends.legendary_chest.name=Legendary Chestplate
 item.legends.legendary_legs.name=Legendary Leggings
@@ -9,3 +11,10 @@ item.legends.legendary_boots.name=Legendary Boots
 
 key.categories.legends=Legends
 key.legends.dash=Dash
+
+advancements.legends.root.title=A Legend Begins
+advancements.legends.root.description=Obtain Legend Essence
+advancements.legends.forge_blade.title=Blade of Heroes
+advancements.legends.forge_blade.description=Craft the Legendary Blade
+advancements.legends.full_set.title=Living Legend
+advancements.legends.full_set.description=Collect the full Legendary Armor set

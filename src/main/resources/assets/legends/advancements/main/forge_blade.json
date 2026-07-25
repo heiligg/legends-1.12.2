@@ -1,0 +1,17 @@
+{
+  "parent": "legends:main/root",
+  "display": {
+    "icon": { "item": "legends:legendary_blade" },
+    "title": { "translate": "advancements.legends.forge_blade.title" },
+    "description": { "translate": "advancements.legends.forge_blade.description" },
+    "frame": "goal"
+  },
+  "criteria": {
+    "got_blade": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [{ "item": "legends:legendary_blade" }]
+      }
+    }
+  }
+}
