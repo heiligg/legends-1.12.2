@@ -1,0 +1,11 @@
+itemGroup.legends=Legends
+
+item.legends.legend_essence.name=Legend Essence
+item.legends.legendary_blade.name=Legendary Blade
+item.legends.legendary_helmet.name=Legendary Helmet
+item.legends.legendary_chest.name=Legendary Chestplate
+item.legends.legendary_legs.name=Legendary Leggings
+item.legends.legendary_boots.name=Legendary Boots
+
+key.categories.legends=Legends
+key.legends.dash=Dash

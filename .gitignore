@@ -1,26 +1,42 @@
-# Ignore build stuff
-/bin/
-.build/
-.gradle/
+# eclipse
+bin/
+*.launch
+.settings/
+.metadata/
+.classpath
+.project
+
+# idea
 out/
+*.ipr
+*.iws
+*.iml
+.idea/
+
+# gradle
+build/
+.gradle/
+
+# forge / minecraft runtime
+eclipse/
 run/
 logs/
 classes/
-eclipse/
-.idea/
-
-# Ignore OS junk
-.DS_Store
-Thumbs.db
-
-# Ignore Minecraft/Forge runtime stuff
 /config/
 mods/
 saves/
 
-# Ignore compiled files
+# OS junk
+.DS_Store
+Thumbs.db
+
+# compiled / temp
 *.class
 *.log
 *.jar
 *.tmp
 *.lock
+!gradle/wrapper/gradle-wrapper.jar
+
+# Files from Forge MDK
+forge*changelog.txt
